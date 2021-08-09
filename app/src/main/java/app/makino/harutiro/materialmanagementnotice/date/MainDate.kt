@@ -14,5 +14,6 @@ open class MainDate(
     open var dayText: String = "",
     open var archive:Boolean = false,
     open var stockDayList:RealmList<StockDayDate>? =null,
-    open var leadTime:String = "",
+    open var leadTime:Double = 0.0,
+    open var alertDay:String = ""
         ): RealmObject()

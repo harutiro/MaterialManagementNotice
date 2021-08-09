@@ -3,6 +3,7 @@ package app.makino.harutiro.materialmanagementnotice.adapter
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -28,6 +29,7 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.ChronoUnit
 import java.util.*
+import kotlin.math.roundToLong
 
 class MainRecyclerViewAdapter(private val context: Context,private val listener: OnItemClickListner):
     RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder>() {
@@ -48,6 +50,9 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         val archiveButton: ImageButton = view.findViewById(R.id.archiveButton)
         val itemRemoveButton: ImageButton = view.findViewById(R.id.itemRemoveButton)
         val stockButton: Button =view.findViewById(R.id.stockButton)
+        val lastStackDayText:TextView = view.findViewById(R.id.lastStackDayText)
+        val leadDayTimeText:TextView = view.findViewById(R.id.leadDayTimeText)
+
 
 
 
@@ -75,22 +80,34 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             val lastLocalDate = LocalDate.parse(stockPerson?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
             val today = LocalDate.now()
 
-            val stock:StockDayDate = StockDayDate(UUID.randomUUID().toString(),
+            val stock = StockDayDate(UUID.randomUUID().toString(),
                                                   today.format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")),
                                                   "入荷",
                                                   ChronoUnit.DAYS.between(lastLocalDate,today))
 
+            var leadTime:Double = ChronoUnit.DAYS.between(lastLocalDate,today).toDouble()
+            for (i in person?.stockDayList!!){
+                leadTime += i.interval
+            }
+            leadTime /= (person.stockDayList!!.size)
+
             realm.executeTransaction {
-                person?.stockDayList?.plusAssign(stock)
+                person.stockDayList?.plusAssign(stock)
+                person.leadTime = leadTime
+                person.alertDay = today.plusDays(leadTime.roundToLong()).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
             }
 
             listener.onReView("入荷しました")
         }
 
+
+
 //        itemとレイアウトの直接の結びつけ
         val decodedByte: ByteArray = Base64.decode(item.icon, 0)
         holder.iconImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.size))
         holder.mainTextView.text = item.mainText
+        holder.lastStackDayText.text = item.stockDayList?.get(person?.stockDayList!!.size - 1)?.day
+        holder.leadDayTimeText.text = item.leadTime.toString()
 
 //        アーカイブの見た目の判断
         if(!item.archive){
