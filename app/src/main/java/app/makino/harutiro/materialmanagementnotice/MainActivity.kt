@@ -60,10 +60,6 @@ class MainActivity : AppCompatActivity() {
                 val dialog = CustomDialogFlagment()
                 val args = Bundle()
 
-                args.putString("title", i.mainText)
-                args.putString("icon", i.icon)
-                args.putString("lastStockDay", i.stockDayList!![i.stockDayList?.size!! - 1]?.day)
-                args.putDouble("leadTime",i.leadTime)
                 args.putInt("remaining",number)
                 args.putString("id",i.id)
                 dialog.arguments = args

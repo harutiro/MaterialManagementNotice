@@ -12,10 +12,20 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
+import app.makino.harutiro.materialmanagementnotice.date.MainDate
+import io.realm.Realm
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 
 
 class CustomDialogFlagment : DialogFragment() {
+
+    private val realm by lazy {
+        Realm.getDefaultInstance()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,15 +37,36 @@ class CustomDialogFlagment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val id = arguments?.getString("id", "")
+        val person = realm.where(MainDate::class.java).equalTo("id",id).findFirst()
+
         view.findViewById<Button>(R.id.dialogOkButton).setOnClickListener{
+
+            val day = when(view.findViewById<Spinner>(R.id.dialogSpinner).selectedItemPosition){
+                0 -> { 7L }
+                1 -> { 14L }
+                2 -> { 21L }
+                3 -> { 28L }
+                4 -> { 922330L }
+                else -> { 0L }
+            }
+
+            realm.executeTransaction {
+                person?.alertDay = LocalDate.now().plusDays(day).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
+            }
+
+
             dialog?.dismiss()
         }
-        view.findViewById<TextView>(R.id.dialogLastStockText).text = arguments?.getString("lastStockDay", "")
-        view.findViewById<TextView>(R.id.dialogTitleText).text = arguments?.getString("title", "")
+        if (person != null) {
+            view.findViewById<TextView>(R.id.dialogLastStockText).text = person.stockDayList!![person.stockDayList!!.size - 1]!!.day
+        }
+        view.findViewById<TextView>(R.id.dialogTitleText).text = person?.mainText
         view.findViewById<TextView>(R.id.dialogRemainingText).text = arguments?.getInt("remaining", 0).toString()
-        view.findViewById<TextView>(R.id.dialogLeadTimeText).text = arguments?.getDouble("leadTime", 0.0).toString()
+        view.findViewById<TextView>(R.id.dialogLeadTimeText).text = person?.leadTime.toString()
 
         view.findViewById<ImageView>(R.id.dialogIcon)
+
 
     }
 
