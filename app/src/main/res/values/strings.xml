@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">部材お知らせ</string>
+    <string name="app_name">ぽちまね</string>
 
     <string-array name="list">
         <item>一週間後に表示する</item>
