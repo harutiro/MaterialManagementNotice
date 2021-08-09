@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">部材お知らせ</string>
+
+    <string-array name="list">
+        <item>一週間後に表示する</item>
+        <item>二週間後に表示する</item>
+        <item>三週間後に表示する</item>
+        <item>一ヶ月後に表示する</item>
+        <item>入荷するまで表示しない</item>
+    </string-array>
 </resources>

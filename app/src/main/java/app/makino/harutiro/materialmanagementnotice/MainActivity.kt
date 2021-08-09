@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.makino.harutiro.materialmanagementnotice.adapter.MainRecyclerViewAdapter
 import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
+import app.makino.harutiro.materialmanagementnotice.dousa.CustomDialogFlagment
 import app.makino.harutiro.materialmanagementnotice.dousa.JapaneseChange
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
@@ -43,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.testButton).setOnClickListener {
-            Log.d("debug", LocalDate.parse("1999年 07月 07日", DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")).toString())
+            var dialog = CustomDialogFlagment()
+            dialog.show(supportFragmentManager,"customDialog")
         }
 
         findViewById<EditText>(R.id.searchEditText).doOnTextChanged{ _, _, _, _ ->
