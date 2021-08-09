@@ -27,10 +27,13 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
 import app.makino.harutiro.materialmanagementnotice.date.TagDateClass
 import app.makino.harutiro.materialmanagementnotice.R
+import app.makino.harutiro.materialmanagementnotice.adapter.EditRecyclerViewAdapter
 import app.makino.harutiro.materialmanagementnotice.date.StockDayDate
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -127,13 +130,20 @@ class EditActivity : AppCompatActivity() {
                 stateTagList?.add(i.copyId.toString())
             }
             setChip()
+
+            //==================リサイクラービュー==================================
+
+            val adapter = EditRecyclerViewAdapter(this)
+            val recycleView = findViewById<RecyclerView>(R.id.editRecyclerView)
+            recycleView.layoutManager = LinearLayoutManager(this)
+            recycleView.adapter = adapter
+
+            //リサイクラービューアダプターで宣言したaddAllメソッドを呼んであげてデータも渡している
+            adapter.setList(item.stockDayList!!)
+
         }
 
-        //＝＝＝＝＝＝＝＝＝＝＝＝URLじゃなかった場合URL部分の表示を消す＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-        if(!Regex("http://").containsMatchIn(subEdit?.text.toString()) && !Regex("https://").containsMatchIn(subEdit?.text.toString())){
-            subEdit?.visibility = GONE
-            subIcon?.visibility = GONE
-        }
+
 
 
 
