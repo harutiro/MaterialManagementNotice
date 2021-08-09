@@ -77,8 +77,6 @@ class EditActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit)
         title = "編集"
 
-        subEdit = findViewById(R.id.subEdit)
-        subIcon = findViewById(R.id.subIcon)
         mainEdit = findViewById(R.id.mainEdit)
         mainIcon = findViewById(R.id.mainIcon)
         dayText = findViewById(R.id.dayText)
@@ -118,7 +116,6 @@ class EditActivity : AppCompatActivity() {
             dayText?.text = item?.dayText
             memoEdit?.setText(item?.memoText)
             mainEdit?.setText(item?.mainText)
-            subEdit?.setText(item?.subText)
             archive = item?.archive!!
 
             //＝＝＝＝＝＝＝＝＝＝＝＝タグのはめ込み部分＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -179,86 +176,6 @@ class EditActivity : AppCompatActivity() {
         }
 
 
-
-
-//=============================共有で飛ばされたときに動く部分
-        if (TextUtils.equals(intent.action, Intent.ACTION_SEND)) {
-            val extras = intent.extras
-            val comeText = extras!!.getCharSequence(Intent.EXTRA_TEXT).toString()
-
-            findViewById<EditText>(R.id.mainEdit).setText(comeText)
-
-            //URLで動く部分
-            if(Regex("http://").containsMatchIn(comeText) || Regex("https://").containsMatchIn(comeText)) {
-
-                //URLや文字の受け取り
-                val domein: String1 = comeText.removePrefix("https://").removePrefix("http://").split("/")[0]
-
-                findViewById<EditText>(R.id.subEdit).setText(comeText)
-                findViewById<EditText>(R.id.mainEdit).setText("NowLoading...")
-
-                subEdit?.visibility = VISIBLE
-                subIcon?.visibility = VISIBLE
-
-                //faviconの取得
-                Picasso.get()
-                    //画像URL
-                    .load("https://www.google.com/s2/favicons?domain=$domein")
-                    .resize(300, 300) //表示サイズ指定
-                    .centerCrop() //resizeで指定した範囲になるよう中央から切り出し
-                    .into(findViewById<ImageView>(R.id.mainIcon)) //imageViewに流し込み
-
-
-                //WebViewでのタイトルの取得の仕方。
-                val webview = WebView(this)
-
-                //URL
-                webview.loadUrl(comeText)
-
-                //画面を取得するときにここがないと取得できない
-                val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                val params = WindowManager.LayoutParams(
-                    300,
-                    300,
-                    WindowManager.LayoutParams.TYPE_APPLICATION,
-                    WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                    PixelFormat.TRANSLUCENT
-                )
-
-//                TODO:終わらせるときにクローズさせるようにする。
-                wm.addView(webview, params)
-
-                //非表示
-                webview.visibility = GONE
-
-                //タイトルの取得
-                webview.webViewClient = object : WebViewClient() {
-                    override fun onPageFinished(view: WebView, url: String1) {
-
-                        val title = webview.title.toString()
-                        mainEdit?.setText(title)
-
-
-                    }
-
-                    override fun onReceivedError(
-                        view: WebView?,
-                        errorCode: Int,
-                        description: String1?,
-                        url: String1?
-                    ){
-                        mainEdit?.setText("ネットワークエラー")
-                    }
-
-                }
-            }
-        }
-
-
-
-
-
-
     }
 
     fun save(){
@@ -282,9 +199,7 @@ class EditActivity : AppCompatActivity() {
             //====================その他データの保存=========================
             new?.icon = output
             new?.mainText = mainEdit?.text.toString()
-            new?.subText = subEdit?.text.toString()
             new?.memoText = memoEdit?.text.toString()
-            new?.image = ""
             new?.archive = archive
 
             //=====================日付==========================

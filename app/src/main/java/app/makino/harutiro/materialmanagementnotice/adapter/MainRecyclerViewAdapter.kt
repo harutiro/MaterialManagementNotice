@@ -33,7 +33,6 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
         val mainTextView: TextView = view.findViewById(R.id.mainTextView)
-        val subTextView:TextView = view.findViewById(R.id.subTextView)
         val imageView:ImageView = view.findViewById(R.id.imageView)
         val container: ConstraintLayout = view.findViewById(R.id.constraint)
         val itemTagChipGroup: ChipGroup = view.findViewById(R.id.itemTagChipGroup)
@@ -63,13 +62,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         val decodedByte: ByteArray = Base64.decode(item.icon, 0)
         holder.iconImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.size))
         holder.mainTextView.text = item.mainText
-        holder.subTextView.text = item.subText
         holder.memoTextView.text = item.memoText
-
-//        URLを表示するか判断するところ
-        if(!(Regex("http://").containsMatchIn(item.subText) || Regex("https://").containsMatchIn(item.subText))) {
-            holder.subTextView.visibility = GONE
-        }
 
 //        アーカイブの見た目の判断
         if(!item.archive){
@@ -99,16 +92,6 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             }
             listener.onReView("消去しました")
 
-        }
-
-
-
-//        画像の結びつけ
-        if(item.image != ""){
-//            holder.imageView.setImageResource(item.image)
-        }else{
-//            holder.imageView.visibility = GONE
-            holder.imageView.setImageResource(R.drawable.ramen2)
         }
 
         //chip関係

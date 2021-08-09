@@ -40,27 +40,10 @@
             android:text="テストコメント"
             android:textColor="@color/textBlock"
             android:textSize="20sp"
-            card_view:layout_constraintBottom_toTopOf="@+id/subTextView"
-            card_view:layout_constraintEnd_toStartOf="@+id/itemRemoveButton"
-            card_view:layout_constraintStart_toEndOf="@+id/iconImageView"
-            card_view:layout_constraintTop_toTopOf="@+id/iconImageView" />
-
-        <TextView
-            android:id="@+id/subTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:ellipsize="end"
-            android:gravity="bottom"
-            android:maxLines="1"
-            android:scrollHorizontally="true"
-            android:text="URL"
-            android:textColor="@color/textLightGray"
-            android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="@+id/iconImageView"
             card_view:layout_constraintEnd_toStartOf="@+id/itemRemoveButton"
             card_view:layout_constraintStart_toEndOf="@+id/iconImageView"
-            card_view:layout_constraintTop_toBottomOf="@+id/mainTextView" />
+            card_view:layout_constraintTop_toTopOf="@+id/iconImageView" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"

@@ -31,7 +31,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="1dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/border"
                     android:ems="10"
@@ -43,7 +43,7 @@
                     android:textColor="@color/textBlock"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/memoIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/subEdit" />
+                    app:layout_constraintTop_toBottomOf="@+id/mainEdit" />
 
                 <ImageView
                     android:id="@+id/mainIcon"
@@ -93,39 +93,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/mainIcon"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/subEdit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:backgroundTint="@color/border"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:scrollbars="vertical"
-                    android:singleLine="true"
-                    android:textColor="@color/textLightGray"
-                    android:textSize="16sp"
-                    android:minHeight="48dp"
-                    app:layout_constraintBottom_toTopOf="@+id/memoEdit"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/subIcon"
-                    app:layout_constraintTop_toBottomOf="@+id/mainEdit"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-                <ImageView
-                    android:id="@+id/subIcon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/subEdit"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/subEdit"
-                    app:srcCompat="@drawable/link_black_24dp"
-                    app:tint="@color/textBlock" />
 
                 <ImageView
                     android:id="@+id/memoIcon"
