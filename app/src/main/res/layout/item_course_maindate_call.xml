@@ -37,27 +37,38 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:scrollHorizontally="true"
-            android:text="テストコメント"
+            android:text="配線カバー"
             android:textColor="@color/textBlock"
             android:textSize="20sp"
-            card_view:layout_constraintBottom_toBottomOf="@+id/iconImageView"
+            card_view:layout_constraintBottom_toTopOf="@+id/textView"
             card_view:layout_constraintEnd_toStartOf="@+id/itemRemoveButton"
             card_view:layout_constraintStart_toEndOf="@+id/iconImageView"
-            card_view:layout_constraintTop_toTopOf="@+id/iconImageView" />
+            card_view:layout_constraintTop_toTopOf="@+id/iconImageView"
+            card_view:layout_constraintVertical_bias="0.0" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView"
-            android:layout_width="88dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitCenter"
-            android:visibility="gone"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/iconImageView"
-            card_view:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="最終入荷日"
+            android:textColor="@color/textLightGray"
+            android:textSize="12sp"
+            card_view:layout_constraintBottom_toTopOf="@+id/textView2"
+            card_view:layout_constraintEnd_toStartOf="@+id/textView3"
+            card_view:layout_constraintStart_toStartOf="@+id/mainTextView"
+            card_view:layout_constraintTop_toBottomOf="@+id/mainTextView" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全体の平均リードタイム"
+            android:textColor="@color/textLightGray"
+            android:textSize="12sp"
+            card_view:layout_constraintEnd_toStartOf="@+id/textView4"
+            card_view:layout_constraintStart_toEndOf="@+id/mainTextView"
+            card_view:layout_constraintStart_toStartOf="@+id/mainTextView"
+            card_view:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/itemTagChipGroup"
@@ -68,25 +79,10 @@
             android:layout_marginBottom="8dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/imageView"
-            card_view:layout_constraintVertical_bias="1.0">
+            card_view:layout_constraintHorizontal_bias="1.0"
+            card_view:layout_constraintStart_toStartOf="parent">
 
         </com.google.android.material.chip.ChipGroup>
-
-        <TextView
-            android:id="@+id/memoTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
-            card_view:layout_constraintBottom_toTopOf="@+id/itemTagChipGroup"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/imageView"
-            card_view:layout_constraintTop_toBottomOf="@+id/iconImageView"
-            card_view:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/itemRemoveButton"
@@ -95,9 +91,9 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            card_view:layout_constraintBottom_toBottomOf="@+id/iconImageView"
+            card_view:layout_constraintBottom_toBottomOf="@+id/archiveButton"
             card_view:layout_constraintEnd_toStartOf="@+id/archiveButton"
-            card_view:layout_constraintTop_toTopOf="@+id/iconImageView"
+            card_view:layout_constraintTop_toTopOf="@+id/archiveButton"
             card_view:srcCompat="@drawable/delete_black_24dp__1_"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -105,15 +101,50 @@
             android:id="@+id/archiveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            card_view:layout_constraintBottom_toBottomOf="@+id/iconImageView"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toTopOf="@+id/iconImageView"
             card_view:srcCompat="@drawable/archive_black_24dp"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:text="5/12"
+            android:textColor="@color/textLightGray"
+            android:textSize="12sp"
+            card_view:layout_constraintBottom_toBottomOf="@+id/textView"
+            card_view:layout_constraintEnd_toEndOf="@+id/mainTextView"
+            card_view:layout_constraintStart_toEndOf="@+id/textView"
+            card_view:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:text="20日"
+            android:textColor="@color/textLightGray"
+            android:textSize="12sp"
+            card_view:layout_constraintBottom_toBottomOf="@+id/textView2"
+            card_view:layout_constraintEnd_toEndOf="@+id/mainTextView"
+            card_view:layout_constraintStart_toEndOf="@+id/textView2"
+            card_view:layout_constraintTop_toTopOf="@+id/textView2" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="入荷"
+            card_view:layout_constraintBottom_toTopOf="@+id/itemTagChipGroup"
+            card_view:layout_constraintEnd_toEndOf="@+id/archiveButton"
+            card_view:layout_constraintStart_toStartOf="@+id/itemRemoveButton"
+            card_view:layout_constraintTop_toBottomOf="@+id/itemRemoveButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

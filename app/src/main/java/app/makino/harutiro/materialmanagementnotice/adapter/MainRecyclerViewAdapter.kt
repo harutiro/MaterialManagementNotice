@@ -33,10 +33,8 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
         val mainTextView: TextView = view.findViewById(R.id.mainTextView)
-        val imageView:ImageView = view.findViewById(R.id.imageView)
         val container: ConstraintLayout = view.findViewById(R.id.constraint)
         val itemTagChipGroup: ChipGroup = view.findViewById(R.id.itemTagChipGroup)
-        val memoTextView:TextView = view.findViewById(R.id.memoTextView)
         val archiveButton: ImageButton = view.findViewById(R.id.archiveButton)
         val itemRemoveButton: ImageButton = view.findViewById(R.id.itemRemoveButton)
 
@@ -62,7 +60,6 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         val decodedByte: ByteArray = Base64.decode(item.icon, 0)
         holder.iconImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.size))
         holder.mainTextView.text = item.mainText
-        holder.memoTextView.text = item.memoText
 
 //        アーカイブの見た目の判断
         if(!item.archive){
