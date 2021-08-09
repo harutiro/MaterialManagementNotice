@@ -10,8 +10,9 @@ import app.makino.harutiro.materialmanagementnotice.R
 import android.util.DisplayMetrics
 
 import android.view.WindowManager
-
-
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 
 
 class CustomDialogFlagment : DialogFragment() {
@@ -21,6 +22,21 @@ class CustomDialogFlagment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.dialog_flagment, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<Button>(R.id.dialogOkButton).setOnClickListener{
+            dialog?.dismiss()
+        }
+        view.findViewById<TextView>(R.id.dialogLastStockText).text = arguments?.getString("lastStockDay", "")
+        view.findViewById<TextView>(R.id.dialogTitleText).text = arguments?.getString("title", "")
+        view.findViewById<TextView>(R.id.dialogRemainingText).text = arguments?.getInt("remaining", 0).toString()
+        view.findViewById<TextView>(R.id.dialogLeadTimeText).text = arguments?.getDouble("leadTime", 0.0).toString()
+
+        view.findViewById<ImageView>(R.id.dialogIcon)
+
     }
 
     /**

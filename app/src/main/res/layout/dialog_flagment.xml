@@ -29,7 +29,7 @@
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/dialogTitleText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -39,20 +39,20 @@
             android:text="配線カバー"
             android:textColor="@color/textBlock"
             android:textSize="20sp"
-            card_view:layout_constraintEnd_toStartOf="@+id/imageView"
+            card_view:layout_constraintEnd_toStartOf="@+id/dialogIcon"
             card_view:layout_constraintStart_toStartOf="@+id/textView"
             card_view:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/dialogIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:minWidth="48dp"
             android:minHeight="48dp"
-            card_view:layout_constraintBottom_toBottomOf="@+id/textView2"
+            card_view:layout_constraintBottom_toBottomOf="@+id/dialogTitleText"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="@+id/textView2"
+            card_view:layout_constraintTop_toTopOf="@+id/dialogTitleText"
             card_view:srcCompat="@drawable/description_black_24dp__1_" />
 
         <TextView
@@ -66,7 +66,7 @@
             android:textSize="16sp"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="@+id/textView"
-            card_view:layout_constraintTop_toBottomOf="@+id/textView2" />
+            card_view:layout_constraintTop_toBottomOf="@+id/dialogTitleText" />
 
         <TextView
             android:id="@+id/textView4"
@@ -87,7 +87,7 @@
             card_view:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/dialogLastStockText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="5月12日"
@@ -101,13 +101,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="全体の平均リード："
-            card_view:layout_constraintBottom_toTopOf="@+id/spinner"
+            card_view:layout_constraintBottom_toTopOf="@+id/dialogSpinner"
             card_view:layout_constraintStart_toStartOf="@+id/textView"
             card_view:layout_constraintTop_toBottomOf="@+id/textView5"
             card_view:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/dialogLeadTimeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20"
@@ -116,7 +116,7 @@
             card_view:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/dialogOkButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
@@ -131,20 +131,20 @@
             android:layout_height="wrap_content"
             android:text="日"
             card_view:layout_constraintBottom_toBottomOf="@+id/textView7"
-            card_view:layout_constraintStart_toEndOf="@+id/textView8"
+            card_view:layout_constraintStart_toEndOf="@+id/dialogLeadTimeText"
             card_view:layout_constraintTop_toTopOf="@+id/textView7" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/dialogSpinner"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="8dp"
             android:entries="@array/list"
-            card_view:layout_constraintBottom_toBottomOf="@+id/button2"
-            card_view:layout_constraintEnd_toStartOf="@+id/button2"
+            card_view:layout_constraintBottom_toBottomOf="@+id/dialogOkButton"
+            card_view:layout_constraintEnd_toStartOf="@+id/dialogOkButton"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="@+id/button2" />
+            card_view:layout_constraintTop_toTopOf="@+id/dialogOkButton" />
 
         <TextView
             android:id="@+id/textView10"
@@ -152,13 +152,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="残り"
-            card_view:layout_constraintEnd_toStartOf="@+id/textView11"
+            card_view:layout_constraintEnd_toStartOf="@+id/dialogRemainingText"
             card_view:layout_constraintHorizontal_chainStyle="packed"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/dialogRemainingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2"

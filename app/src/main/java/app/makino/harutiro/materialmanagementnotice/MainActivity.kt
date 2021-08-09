@@ -28,6 +28,7 @@ import io.realm.Realm
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
+import kotlin.math.roundToLong
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,11 +48,13 @@ class MainActivity : AppCompatActivity() {
 
         AndroidThreeTen.init(this)
 
+        title = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
+
         val new = realm.where(MainDate::class.java).findAll()
         var number = 0
 
         for(i in new){
-            if(i.alertDay.isNotEmpty() && LocalDate.now().isEqual(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+            if(i.alertDay.isNotEmpty() && LocalDate.now().plusDays(1).isAfter(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
                 number++
 
                 val dialog = CustomDialogFlagment()
