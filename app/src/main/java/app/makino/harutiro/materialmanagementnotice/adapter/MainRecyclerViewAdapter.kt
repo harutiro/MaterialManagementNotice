@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,9 +16,18 @@ import androidx.recyclerview.widget.RecyclerView
 import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
 import app.makino.harutiro.materialmanagementnotice.R
+import app.makino.harutiro.materialmanagementnotice.date.StockDayDate
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.Period
+import org.threeten.bp.ZoneOffset
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.temporal.ChronoUnit
+import java.util.*
 
 class MainRecyclerViewAdapter(private val context: Context,private val listener: OnItemClickListner):
     RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder>() {
@@ -37,6 +47,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         val itemTagChipGroup: ChipGroup = view.findViewById(R.id.itemTagChipGroup)
         val archiveButton: ImageButton = view.findViewById(R.id.archiveButton)
         val itemRemoveButton: ImageButton = view.findViewById(R.id.itemRemoveButton)
+        val stockButton: Button =view.findViewById(R.id.stockButton)
 
 
 
@@ -55,6 +66,26 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
 
         // MainActivity側でタップしたときの動作を記述するため，n番目の要素を渡す
         holder.container.setOnClickListener { listener.onItemClick(item) }
+
+//        入荷ボタンの動作
+        holder.stockButton.setOnClickListener {
+
+            AndroidThreeTen.init(context)
+            val stockPerson = person?.stockDayList?.get(person.stockDayList!!.size - 1)
+            val lastLocalDate = LocalDate.parse(stockPerson?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
+            val today = LocalDate.now()
+
+            val stock:StockDayDate = StockDayDate(UUID.randomUUID().toString(),
+                                                  today.format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")),
+                                                  "入荷",
+                                                  ChronoUnit.DAYS.between(lastLocalDate,today))
+
+            realm.executeTransaction {
+                person?.stockDayList?.plusAssign(stock)
+            }
+
+            listener.onReView("入荷しました")
+        }
 
 //        itemとレイアウトの直接の結びつけ
         val decodedByte: ByteArray = Base64.decode(item.icon, 0)

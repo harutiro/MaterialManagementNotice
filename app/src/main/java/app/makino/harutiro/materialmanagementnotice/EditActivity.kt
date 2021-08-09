@@ -31,12 +31,16 @@ import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
 import app.makino.harutiro.materialmanagementnotice.date.TagDateClass
 import app.makino.harutiro.materialmanagementnotice.R
+import app.makino.harutiro.materialmanagementnotice.date.StockDayDate
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import io.realm.Realm
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.temporal.ChronoUnit
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -215,6 +219,15 @@ class EditActivity : AppCompatActivity() {
                     this.copyId = i
                 }
                 new?.tagList?.add(tagObject)
+            }
+
+            if(id == null){
+                val stock: StockDayDate = StockDayDate(UUID.randomUUID().toString(),
+                    formatted,
+                    "最初",
+                    0)
+
+                new?.stockDayList?.plusAssign(stock)
             }
 
             finish()

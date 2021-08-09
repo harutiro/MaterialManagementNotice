@@ -8,6 +8,6 @@ open class StockDayDate (
     @PrimaryKey open var id: String? = UUID.randomUUID().toString(),
     open var day:String = "",
     open var state:String = "",
-    open var interval:String = ""
+    open var interval:Long = 0L
 
 ): RealmObject()

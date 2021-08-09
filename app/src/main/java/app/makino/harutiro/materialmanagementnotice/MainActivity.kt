@@ -2,14 +2,12 @@ package app.makino.harutiro.materialmanagementnotice
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
@@ -24,6 +22,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
 import io.realm.Realm
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
 
 
@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        findViewById<Button>(R.id.testButton).setOnClickListener {
+            Log.d("debug", LocalDate.parse("1999年 07月 07日", DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")).toString())
+        }
 
         findViewById<EditText>(R.id.searchEditText).doOnTextChanged{ _, _, _, _ ->
             recyclerViewGo()
