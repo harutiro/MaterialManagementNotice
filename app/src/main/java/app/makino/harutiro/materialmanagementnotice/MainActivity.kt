@@ -21,7 +21,9 @@ import app.makino.harutiro.materialmanagementnotice.dousa.JapaneseChange
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
@@ -43,10 +45,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<Button>(R.id.testButton).setOnClickListener {
-            var dialog = CustomDialogFlagment()
-            dialog.show(supportFragmentManager,"customDialog")
+        AndroidThreeTen.init(this)
+
+        val new = realm.where(MainDate::class.java).findAll()
+        var number = 0
+
+        for(i in new){
+            if(i.alertDay.isNotEmpty() && LocalDate.now().isEqual(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+                number++
+
+                val dialog = CustomDialogFlagment()
+                val args = Bundle()
+
+                args.putString("title", i.mainText)
+                args.putString("icon", i.icon)
+                args.putString("lastStockDay", i.stockDayList!![i.stockDayList?.size!! - 1]?.day)
+                args.putDouble("leadTime",i.leadTime)
+                args.putInt("remaining",number)
+                args.putString("id",i.id)
+                dialog.arguments = args
+
+                dialog.show(supportFragmentManager,"customDialog")
+            }
         }
+
 
         findViewById<EditText>(R.id.searchEditText).doOnTextChanged{ _, _, _, _ ->
             recyclerViewGo()
@@ -54,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         serchTagChipGroup = findViewById(R.id.serchTagChipGroup)
 
-        findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.puraFAB).setOnClickListener{
+        findViewById<FloatingActionButton>(R.id.puraFAB).setOnClickListener{
             val intent = Intent(this, EditActivity::class.java)
             intent.putExtra("editMode", true)
             startActivity(intent)
