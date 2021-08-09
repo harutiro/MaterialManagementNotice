@@ -1,4 +1,4 @@
-package app.makino.harutiro.clips
+package app.makino.harutiro.materialmanagementnotice
 
 import android.app.Application
 import io.realm.Realm

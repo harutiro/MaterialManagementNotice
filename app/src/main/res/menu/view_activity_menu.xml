@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/tag_settings"
+        android:title="tag_settings"
+        android:icon="@drawable/label_black_24dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/archive_settings"
+        android:title="archive_settings"
+        android:icon="@drawable/archive_black_24dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:showAsAction="ifRoom"/>
+
+<!--    <item android:id="@+id/action_settings"-->
+<!--        android:title="action_settings"-->
+<!--        android:icon="@drawable/ic_baseline_more_vert_24"-->
+<!--        android:background="?android:attr/selectableItemBackgroundBorderless"-->
+<!--        app:showAsAction="ifRoom"/>-->
+
+</menu>
