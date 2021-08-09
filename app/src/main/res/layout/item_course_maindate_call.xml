@@ -23,7 +23,7 @@
             android:id="@+id/iconImageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
@@ -33,7 +33,7 @@
             android:id="@+id/mainTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:scrollHorizontally="true"
@@ -54,7 +54,6 @@
             android:textColor="@color/textLightGray"
             android:textSize="12sp"
             card_view:layout_constraintBottom_toTopOf="@+id/leadTimeText"
-            card_view:layout_constraintEnd_toStartOf="@+id/lastStackDayText"
             card_view:layout_constraintStart_toStartOf="@+id/mainTextView"
             card_view:layout_constraintTop_toBottomOf="@+id/mainTextView" />
 
@@ -62,7 +61,7 @@
             android:id="@+id/leadTimeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="全体の平均リードタイム"
+            android:text="リードタイム"
             android:textColor="@color/textLightGray"
             android:textSize="12sp"
             card_view:layout_constraintEnd_toStartOf="@+id/leadDayTimeText"
@@ -112,27 +111,25 @@
 
         <TextView
             android:id="@+id/lastStackDayText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:text="5/12"
             android:textColor="@color/textLightGray"
             android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="@+id/lastStockText"
-            card_view:layout_constraintEnd_toEndOf="@+id/mainTextView"
             card_view:layout_constraintStart_toEndOf="@+id/lastStockText"
             card_view:layout_constraintTop_toTopOf="@+id/lastStockText" />
 
         <TextView
             android:id="@+id/leadDayTimeText"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:text="20日"
             android:textColor="@color/textLightGray"
             android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="@+id/leadTimeText"
-            card_view:layout_constraintEnd_toEndOf="@+id/mainTextView"
             card_view:layout_constraintStart_toEndOf="@+id/leadTimeText"
             card_view:layout_constraintTop_toTopOf="@+id/leadTimeText" />
 
