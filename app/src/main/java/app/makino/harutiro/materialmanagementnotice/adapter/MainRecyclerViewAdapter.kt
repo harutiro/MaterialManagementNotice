@@ -2,6 +2,7 @@ package app.makino.harutiro.materialmanagementnotice.adapter
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
@@ -72,6 +74,10 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
 
         // MainActivity側でタップしたときの動作を記述するため，n番目の要素を渡す
         holder.container.setOnClickListener { listener.onItemClick(item) }
+
+        if(LocalDate.now().isEqual(LocalDate.parse(item.stockDayList!![item.stockDayList!!.size - 1]?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+            holder.stockButton.setBackgroundColor(ContextCompat.getColor(context, R.color.textGray))
+        }
 
 //        入荷ボタンの動作
         holder.stockButton.setOnClickListener {
