@@ -48,8 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         AndroidThreeTen.init(this)
 
-        title = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
-
         val new = realm.where(MainDate::class.java).findAll()
         var number = 0
 
@@ -132,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         //アーカイブ部分の特別なチップの作成
         val firstChip = Chip(serchTagChipGroup?.context)
 
-        firstChip.text= "アーカイブ"
+        firstChip.text= "ゴミ箱"
 
         // necessary to get single selection working
         firstChip.isCheckable = true
@@ -186,11 +184,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         //アーカイブの消去
-        if(stateTagList.contains("アーカイブ")){
+        if(stateTagList.contains("ゴミ箱")){
             realmResalt = realmResalt.filter{it.archive}.toMutableList()
-            stateTagList.remove("アーカイブ")
+            stateTagList.remove("ゴミ箱")
+
+            title = "ゴミ箱"
+
         }else{
             realmResalt = realmResalt.filter{!it.archive}.toMutableList()
+
+            title = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
         }
 
         if(realmResalt.size > 0){

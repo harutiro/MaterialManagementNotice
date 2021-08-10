@@ -41,7 +41,7 @@
             android:textColor="@color/textBlock"
             android:textSize="20sp"
             card_view:layout_constraintBottom_toTopOf="@+id/lastStockText"
-            card_view:layout_constraintEnd_toStartOf="@+id/itemRemoveButton"
+            card_view:layout_constraintEnd_toStartOf="@+id/stockButton"
             card_view:layout_constraintStart_toEndOf="@+id/iconImageView"
             card_view:layout_constraintTop_toTopOf="@+id/iconImageView"
             card_view:layout_constraintVertical_bias="0.0" />
@@ -64,24 +64,26 @@
             android:text="リードタイム"
             android:textColor="@color/textLightGray"
             android:textSize="12sp"
-            card_view:layout_constraintEnd_toStartOf="@+id/leadDayTimeText"
             card_view:layout_constraintStart_toEndOf="@+id/mainTextView"
             card_view:layout_constraintStart_toStartOf="@+id/mainTextView"
             card_view:layout_constraintTop_toBottomOf="@+id/lastStockText" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/itemTagChipGroup"
-            android:layout_width="0dp"
+        <ImageButton
+            android:id="@+id/archiveButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="1.0"
-            card_view:layout_constraintStart_toStartOf="parent">
-
-        </com.google.android.material.chip.ChipGroup>
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/leadTimeText"
+            card_view:layout_constraintVertical_bias="0.0"
+            card_view:srcCompat="@drawable/delete_black_24dp__1_"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/itemRemoveButton"
@@ -90,24 +92,26 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:minWidth="48dp"
             android:minHeight="48dp"
+            android:visibility="gone"
             card_view:layout_constraintBottom_toBottomOf="@+id/archiveButton"
-            card_view:layout_constraintEnd_toStartOf="@+id/archiveButton"
+            card_view:layout_constraintStart_toEndOf="@+id/archiveButton"
             card_view:layout_constraintTop_toTopOf="@+id/archiveButton"
-            card_view:srcCompat="@drawable/delete_black_24dp__1_"
+            card_view:layout_constraintVertical_bias="0.0"
+            card_view:srcCompat="@drawable/delete_forever_black_24dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <ImageButton
-            android:id="@+id/archiveButton"
-            android:layout_width="wrap_content"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/itemTagChipGroup"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
+            android:layout_marginEnd="8dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="@+id/iconImageView"
-            card_view:srcCompat="@drawable/archive_black_24dp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            card_view:layout_constraintStart_toEndOf="@+id/itemRemoveButton"
+            card_view:layout_constraintTop_toTopOf="@+id/archiveButton"
+            card_view:layout_constraintVertical_bias="0.0">
+
+        </com.google.android.material.chip.ChipGroup>
 
         <TextView
             android:id="@+id/lastStackDayText"
@@ -118,6 +122,8 @@
             android:textColor="@color/textLightGray"
             android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="@+id/lastStockText"
+            card_view:layout_constraintEnd_toEndOf="@+id/mainTextView"
+            card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toEndOf="@+id/lastStockText"
             card_view:layout_constraintTop_toTopOf="@+id/lastStockText" />
 
@@ -130,6 +136,8 @@
             android:textColor="@color/textLightGray"
             android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="@+id/leadTimeText"
+            card_view:layout_constraintEnd_toEndOf="@+id/mainTextView"
+            card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toEndOf="@+id/leadTimeText"
             card_view:layout_constraintTop_toTopOf="@+id/leadTimeText" />
 
@@ -137,11 +145,11 @@
             android:id="@+id/stockButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="入荷"
-            card_view:layout_constraintBottom_toTopOf="@+id/itemTagChipGroup"
-            card_view:layout_constraintEnd_toEndOf="@+id/archiveButton"
-            card_view:layout_constraintStart_toStartOf="@+id/itemRemoveButton"
-            card_view:layout_constraintTop_toBottomOf="@+id/itemRemoveButton" />
+            card_view:layout_constraintBottom_toBottomOf="@+id/leadTimeText"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="@+id/mainTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

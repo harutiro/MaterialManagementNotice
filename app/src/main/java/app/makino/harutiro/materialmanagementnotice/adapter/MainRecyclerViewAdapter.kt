@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
@@ -111,9 +112,12 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
 
 //        アーカイブの見た目の判断
         if(!item.archive){
-            holder.archiveButton.setImageResource(R.drawable.archive_black_24dp)
+            holder.archiveButton.setImageResource(R.drawable.delete_black_24dp__1_)
+            holder.itemRemoveButton.visibility = GONE
+
         }else{
-            holder.archiveButton.setImageResource(R.drawable.unarchive_black_24dp)
+            holder.archiveButton.setImageResource(R.drawable.restore_from_trash_117571)
+            holder.itemRemoveButton.visibility = VISIBLE
         }
 
 //        アーカイブの動作
@@ -123,9 +127,9 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             }
 
             if(item.archive){
-                listener.onReView("アーカイブしました")
+                listener.onReView("ゴミ箱に移動しました")
             }else{
-                listener.onReView("アーカイブを解除しました")
+                listener.onReView("ゴミ箱から復元しました")
            }
 
         }
