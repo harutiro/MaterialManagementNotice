@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         var number = 0
 
         for(i in new){
-            if(i.alertDay.isNotEmpty() && LocalDate.now().plusDays(1).isAfter(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+            if(i.alertDay.isNotEmpty() && i.leadTime != 0.0 && LocalDate.now().plusDays(1).isAfter(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
                 number++
 
                 val dialog = CustomDialogFlagment()

@@ -312,9 +312,9 @@ class EditActivity : AppCompatActivity() {
             archive = !archive
 
             if(archive){
-                Snackbar.make(findViewById(android.R.id.content),"アーカイブしました", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(android.R.id.content),"ゴミ箱に移動しました", Snackbar.LENGTH_SHORT).show()
             }else{
-                Snackbar.make(findViewById(android.R.id.content),"アーカイブを解除しました", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(android.R.id.content),"ゴミ箱から復元しました", Snackbar.LENGTH_SHORT).show()
             }
 
             invalidateOptionsMenu()
@@ -345,9 +345,9 @@ class EditActivity : AppCompatActivity() {
         val menuArchive = menu?.findItem(R.id.archive_settings)
 
         if(archive){
-            menuArchive?.setIcon(R.drawable.unarchive_black_24dp)
+            menuArchive?.setIcon(R.drawable.restore_from_trash_117571)
         }else{
-            menuArchive?.setIcon(R.drawable.archive_black_24dp)
+            menuArchive?.setIcon(R.drawable.delete_black_24dp__1_)
         }
 
 
