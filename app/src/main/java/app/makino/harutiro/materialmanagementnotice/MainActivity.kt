@@ -46,14 +46,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val new = realm.where(MainDate::class.java).findAll()
+        serchTagChipGroup = findViewById(R.id.serchTagChipGroup)
 
 //        アラート表示部分、フラグメント
         AndroidThreeTen.init(this)
+        val new = realm.where(MainDate::class.java).findAll()
         var number = 0
 
         for(i in new){
-            if(i.alertDay.isNotEmpty() && i.leadTime != 0.0 && LocalDate.now().plusDays(1).isAfter(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+            if(i.alertDay.isNotEmpty() && i.leadTime >= 1.0 && LocalDate.now().plusDays(1).isAfter(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
                 number++
 
                 val dialog = CustomDialogFlagment()
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            override fun onArchiveReView(moji:String) {
+            override fun onArchiveReView(id:String,moji:String) {
                 Snackbar.make(findViewById(android.R.id.content),moji, Snackbar.LENGTH_SHORT)
                     .setAction("元に戻す"){
                         Log.d("debug","入荷したお")
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                 recyclerViewGo()
             }
 
-            override fun onRemoveReView() {
+            override fun onRemoveReView(id:String) {
                 Snackbar.make(findViewById(android.R.id.content),"消去しました", Snackbar.LENGTH_SHORT)
                     .setAction("元に戻す"){
                         Log.d("debug","入荷したお")
@@ -116,10 +117,14 @@ class MainActivity : AppCompatActivity() {
                 recyclerViewGo()
             }
 
-            override fun onStockReView() {
+            override fun onStockReView(id:String) {
                 Snackbar.make(findViewById(android.R.id.content),"入荷しました", Snackbar.LENGTH_SHORT)
                     .setAction("元に戻す"){
-
+                        realm.executeTransaction(){
+                            val person = it.where(MainDate::class.java).equalTo("id",id).findFirst()
+                            person?.stockDayList?.toList()?.dropLast(1)
+                        }
+                        recyclerViewGo()
                     }
                     .setActionTextColor(ContextCompat.getColor(this@MainActivity,R.color.themeColor))
                     .show()

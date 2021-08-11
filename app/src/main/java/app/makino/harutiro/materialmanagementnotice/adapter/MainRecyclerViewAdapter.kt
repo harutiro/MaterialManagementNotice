@@ -99,7 +99,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                 person.alertDay = today.plusDays(leadTime.roundToLong()).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
             }
 
-            listener.onStockReView()
+            listener.onStockReView(item.id.toString())
         }
 
 
@@ -128,9 +128,9 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             }
 
             if(item.archive){
-                listener.onArchiveReView("ゴミ箱に移動しました")
+                listener.onArchiveReView(item.id.toString(),"ゴミ箱に移動しました")
             }else{
-                listener.onArchiveReView("ゴミ箱から復元しました")
+                listener.onArchiveReView(item.id.toString(),"ゴミ箱から復元しました")
            }
 
         }
@@ -140,7 +140,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             realm.executeTransaction {
                 person?.deleteFromRealm()
             }
-            listener.onRemoveReView()
+            listener.onRemoveReView(item.id.toString())
 
         }
 
@@ -175,9 +175,9 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
     // RecyclerViewの要素をタップするためのもの
     interface OnItemClickListner{
         fun onItemClick(item: MainDate)
-        fun onArchiveReView(moji:String)
-        fun onRemoveReView()
-        fun onStockReView()
+        fun onArchiveReView(id:String,moji:String)
+        fun onRemoveReView(id:String)
+        fun onStockReView(id:String)
     }
 
     fun reView(){

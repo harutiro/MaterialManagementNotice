@@ -210,32 +210,7 @@
                 <map>
                   <entry key="0">
                     <value>
-                      <EditorHighlightsForPaintGroup>
-                        <option name="highlights">
-                          <list>
-                            <HighlightOffset>
-                              <option name="start" value="4461" />
-                              <option name="end" value="4474" />
-                            </HighlightOffset>
-                            <HighlightOffset>
-                              <option name="start" value="5488" />
-                              <option name="end" value="5503" />
-                            </HighlightOffset>
-                            <HighlightOffset>
-                              <option name="start" value="5562" />
-                              <option name="end" value="5577" />
-                            </HighlightOffset>
-                            <HighlightOffset>
-                              <option name="start" value="5802" />
-                              <option name="end" value="5816" />
-                            </HighlightOffset>
-                            <HighlightOffset>
-                              <option name="start" value="6656" />
-                              <option name="end" value="6671" />
-                            </HighlightOffset>
-                          </list>
-                        </option>
-                      </EditorHighlightsForPaintGroup>
+                      <EditorHighlightsForPaintGroup />
                     </value>
                   </entry>
                   <entry key="1">
