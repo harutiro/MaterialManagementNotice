@@ -2,9 +2,7 @@ package app.makino.harutiro.materialmanagementnotice.adapter
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -17,18 +15,15 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import app.makino.harutiro.materialmanagementnotice.R
 import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
-import app.makino.harutiro.materialmanagementnotice.R
 import app.makino.harutiro.materialmanagementnotice.date.StockDayDate
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
 import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.Period
-import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.ChronoUnit
 import java.util.*
@@ -104,7 +99,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                 person.alertDay = today.plusDays(leadTime.roundToLong()).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
             }
 
-            listener.onReView("入荷しました")
+            listener.onStockReView()
         }
 
 
@@ -133,9 +128,9 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             }
 
             if(item.archive){
-                listener.onReView("ゴミ箱に移動しました")
+                listener.onArchiveReView("ゴミ箱に移動しました")
             }else{
-                listener.onReView("ゴミ箱から復元しました")
+                listener.onArchiveReView("ゴミ箱から復元しました")
            }
 
         }
@@ -145,7 +140,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             realm.executeTransaction {
                 person?.deleteFromRealm()
             }
-            listener.onReView("消去しました")
+            listener.onRemoveReView()
 
         }
 
@@ -180,7 +175,9 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
     // RecyclerViewの要素をタップするためのもの
     interface OnItemClickListner{
         fun onItemClick(item: MainDate)
-        fun onReView(moji: String)
+        fun onArchiveReView(moji:String)
+        fun onRemoveReView()
+        fun onStockReView()
     }
 
     fun reView(){
