@@ -42,15 +42,14 @@ class MainActivity : AppCompatActivity() {
     var adapter: MainRecyclerViewAdapter? = null
     var serchTagChipGroup:ChipGroup? = null
 
-    var tagState:Boolean = true
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val new = realm.where(MainDate::class.java).findAll()
+
 //        アラート表示部分、フラグメント
         AndroidThreeTen.init(this)
-        val new = realm.where(MainDate::class.java).findAll()
         var number = 0
 
         for(i in new){
@@ -73,13 +72,12 @@ class MainActivity : AppCompatActivity() {
             recyclerViewGo()
         }
 
-        serchTagChipGroup = findViewById(R.id.serchTagChipGroup)
-
         findViewById<FloatingActionButton>(R.id.puraFAB).setOnClickListener{
             val intent = Intent(this, EditActivity::class.java)
             intent.putExtra("editMode", true)
             startActivity(intent)
         }
+
         findViewById<ImageButton>(R.id.dellButton).setOnClickListener{
             findViewById<EditText>(R.id.searchEditText).setText("")
             recyclerViewGo()
@@ -121,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             override fun onStockReView() {
                 Snackbar.make(findViewById(android.R.id.content),"入荷しました", Snackbar.LENGTH_SHORT)
                     .setAction("元に戻す"){
-                        Log.d("debug","入荷したお")
+
                     }
                     .setActionTextColor(ContextCompat.getColor(this@MainActivity,R.color.themeColor))
                     .show()
@@ -134,6 +132,7 @@ class MainActivity : AppCompatActivity() {
         recyclerViewGo()
     }
 
+    var tagState:Boolean = true
 
     override fun onResume(){
         super.onResume()
