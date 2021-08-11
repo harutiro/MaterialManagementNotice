@@ -2,12 +2,14 @@ package app.makino.harutiro.materialmanagementnotice
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
@@ -28,7 +30,6 @@ import io.realm.Realm
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.roundToLong
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        アラート表示部分、フラグメント
         AndroidThreeTen.init(this)
-
         val new = realm.where(MainDate::class.java).findAll()
         var number = 0
 
