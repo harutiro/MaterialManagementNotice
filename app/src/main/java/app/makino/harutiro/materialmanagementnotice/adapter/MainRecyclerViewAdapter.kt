@@ -75,7 +75,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         // MainActivity側でタップしたときの動作を記述するため，n番目の要素を渡す
         holder.container.setOnClickListener { listener.onItemClick(item) }
 
-        if(LocalDate.now().isEqual(LocalDate.parse(item.stockDayList!![item.stockDayList!!.size - 1]?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+        if(item.alertDay.isNotEmpty() && LocalDate.now().isEqual(LocalDate.parse(item.stockDayList!![item.stockDayList!!.size - 1]?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
             holder.stockButton.setBackgroundColor(ContextCompat.getColor(context, R.color.textGray))
         }
 
