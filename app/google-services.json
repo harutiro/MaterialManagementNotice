@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "720469318028",
+    "project_id": "materialmanegementnotice",
+    "storage_bucket": "materialmanegementnotice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720469318028:android:5f92d2fea8be6f99f21ea9",
+        "android_client_info": {
+          "package_name": "app.makino.harutiro.materialmanagementnotice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720469318028-k4b57njoplubtgv8qqmom75q0igkv1oh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2J2dHCEgl5ix7MTg3y5G_Vb-WsqLdcyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720469318028-k4b57njoplubtgv8qqmom75q0igkv1oh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
