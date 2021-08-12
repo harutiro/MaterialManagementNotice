@@ -21,6 +21,9 @@ import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
 import app.makino.harutiro.materialmanagementnotice.dousa.CustomDialogFlagment
 import app.makino.harutiro.materialmanagementnotice.dousa.JapaneseChange
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -45,6 +48,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        AdMob部分
+        MobileAds.initialize(this)
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest: AdRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+
 
         serchTagChipGroup = findViewById(R.id.serchTagChipGroup)
 
