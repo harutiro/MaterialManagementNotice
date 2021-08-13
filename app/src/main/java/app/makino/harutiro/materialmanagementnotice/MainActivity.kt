@@ -132,9 +132,10 @@ class MainActivity : AppCompatActivity() {
                     .setAction("元に戻す"){
                         realm.executeTransaction(){
                             val person = it.where(MainDate::class.java).equalTo("id",id).findFirst()
-                            person?.stockDayList?.toList()?.dropLast(1)
+                            person?.stockDayList?.minusAssign(person.stockDayList?.get(person.stockDayList!!.size - 1))
                         }
                         recyclerViewGo()
+//                        TODO: リードタイムの更新
                     }
                     .setActionTextColor(ContextCompat.getColor(this@MainActivity,R.color.themeColor))
                     .show()
