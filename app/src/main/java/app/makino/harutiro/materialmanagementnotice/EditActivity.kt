@@ -35,6 +35,9 @@ import java.util.*
 import kotlin.String as String1
 
 
+
+
+
 class EditActivity : AppCompatActivity() {
 
     private val requestCode = 1000
@@ -291,6 +294,11 @@ class EditActivity : AppCompatActivity() {
             true
         }
 
+        android.R.id.home -> {
+            finish()
+            true
+        }
+
         else -> {
             // If we got here, the user's action was not recognized.
             // Invoke the superclass to handle it.
@@ -309,6 +317,8 @@ class EditActivity : AppCompatActivity() {
         }else{
             menuArchive?.setIcon(R.drawable.delete_black_24dp__1_)
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
         return super.onCreateOptionsMenu(menu)

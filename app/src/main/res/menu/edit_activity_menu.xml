@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/tag_settings"
-        android:title="tag_settings"
-        android:icon="@drawable/label_black_24dp"
+    <item
+        android:id="@+id/tag_settings"
         android:background="?android:attr/selectableItemBackgroundBorderless"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/label_black_24dp"
+        android:title="tag_settings"
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/archive_settings"
         android:title="archive_settings"
