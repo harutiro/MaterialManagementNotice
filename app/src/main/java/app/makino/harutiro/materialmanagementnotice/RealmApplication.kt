@@ -17,6 +17,7 @@ class RealmApplication: Application() {
         val realmConfig = RealmConfiguration.Builder()
 //                レルムの初期データの実装
             .assetFile("inital_default.realm")
+//                UIスレッドの許可
             .allowWritesOnUiThread(true)
             .build()
         Realm.setDefaultConfiguration(realmConfig)
