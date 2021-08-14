@@ -125,17 +125,13 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             }
         }
 
-//        入荷ボタンの動作
-
-
-
 
 //        itemとレイアウトの直接の結びつけ
         val decodedByte: ByteArray = Base64.decode(item.icon, 0)
         holder.iconImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.size))
         holder.mainTextView.text = item.mainText
         holder.lastStackDayText.text = item.stockDayList?.get(person?.stockDayList!!.size - 1)?.day
-        holder.leadDayTimeText.text = item.leadTime.toString()
+        holder.leadDayTimeText.text = String.format("%.1f",item.leadTime)
 
 //        アーカイブの見た目の判断
         if(!item.archive){
