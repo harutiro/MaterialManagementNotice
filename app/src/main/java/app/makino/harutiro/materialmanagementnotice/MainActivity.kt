@@ -136,12 +136,11 @@ class MainActivity : AppCompatActivity() {
         })
         rView.layoutManager = LinearLayoutManager(this)
         rView.adapter = adapter
-        recyclerViewGo()
     }
 
     var tagState:Boolean = true
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
 
         //TODO: インテントのリザルトコードのより動作を変えるように変更
@@ -150,7 +149,6 @@ class MainActivity : AppCompatActivity() {
             tagState = false
         }
         recyclerViewGo()
-
     }
 
     override fun onDestroy() {
@@ -196,10 +194,6 @@ class MainActivity : AppCompatActivity() {
 
             serchTagChipGroup?.addView(chip)
         }
-
-
-
-
     }
 
 

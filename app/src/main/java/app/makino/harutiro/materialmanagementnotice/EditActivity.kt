@@ -2,48 +2,33 @@ package app.makino.harutiro.materialmanagementnotice
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.PixelFormat
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.text.TextUtils
 import android.text.method.ScrollingMovementMethod
 import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.GONE
-import android.view.View.VISIBLE
-import android.view.WindowManager
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.makino.harutiro.materialmanagementnotice.adapter.EditRecyclerViewAdapter
 import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
-import app.makino.harutiro.materialmanagementnotice.date.TagDateClass
-import app.makino.harutiro.materialmanagementnotice.R
-import app.makino.harutiro.materialmanagementnotice.adapter.EditRecyclerViewAdapter
 import app.makino.harutiro.materialmanagementnotice.date.StockDayDate
+import app.makino.harutiro.materialmanagementnotice.date.TagDateClass
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
 import io.realm.Realm
-import org.threeten.bp.LocalDate
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.temporal.ChronoUnit
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -144,23 +129,6 @@ class EditActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
-//＝＝＝＝＝＝＝＝＝＝＝＝＝＝Realm保存部分
-        findViewById<FloatingActionButton>(R.id.saveFAB).setOnClickListener {
-            if (mainEdit?.text.toString().isBlank()) {
-                val snackbar = Snackbar.make(findViewById(android.R.id.content),"タイトルが入力されていません。", Snackbar.LENGTH_SHORT)
-                snackbar.view.setBackgroundResource(R.color.error)
-                snackbar.show()
-            }else{
-//                Snackbar.make(findViewById(android.R.id.content),"保存しました。", Snackbar.LENGTH_SHORT).show()
-                save()
-            }
-        }
-
 //    ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝消去部分
         findViewById<ImageButton>(R.id.removeButton2).setOnClickListener{
             val person = realm.where(MainDate::class.java).equalTo("id",id).findFirst()
@@ -193,54 +161,56 @@ class EditActivity : AppCompatActivity() {
     }
 
     fun save(){
-        realm.executeTransaction{
 
-            val new = if(id == null){
-                it.createObject(MainDate::class.java,UUID.randomUUID().toString())
-            }else{
-                it.where(MainDate::class.java).equalTo("id",id).findFirst()
-            }
-
-            //＝＝＝＝＝＝＝＝＝＝＝＝＝＝BASE６４＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-            //データ受け取り
-            val bmp = (mainIcon?.drawable as BitmapDrawable).bitmap
-            //エンコード
-            val baos = ByteArrayOutputStream()
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, baos)
-            val b: ByteArray = baos.toByteArray()
-            val output = Base64.encodeToString(b, Base64.NO_WRAP)
-
-            //====================その他データの保存=========================
-            new?.icon = output
-            new?.mainText = mainEdit?.text.toString()
-            new?.memoText = memoEdit?.text.toString()
-            new?.archive = archive
-
-            //=====================日付==========================
-            val date = Date(System.currentTimeMillis())
-            val df = SimpleDateFormat("yyyy年 MM月 dd日", Locale.JAPANESE)
-            val formatted = df.format(date)
-            new?.dayText = formatted
-
-            //＝＝＝＝＝＝＝＝＝＝＝＝タグの保存===================
-            new?.tagList?.clear()
-            for( i in stateTagList!!){
-                val tagObject = realm.createObject(TagDateClass::class.java ,UUID.randomUUID().toString()).apply {
-                    this.copyId = i
+        if (mainEdit?.text.toString().isNotBlank()) {
+            realm.executeTransaction{
+                var new: MainDate? = null
+                if(id == null){
+                    id = UUID.randomUUID().toString()
+                    new = it.createObject(MainDate::class.java,id)
+                }else{
+                    new = it.where(MainDate::class.java).equalTo("id",id).findFirst()
                 }
-                new?.tagList?.add(tagObject)
+
+                //＝＝＝＝＝＝＝＝＝＝＝＝＝＝BASE６４＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+                //データ受け取り
+                val bmp = (mainIcon?.drawable as BitmapDrawable).bitmap
+                //エンコード
+                val baos = ByteArrayOutputStream()
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos)
+                val b: ByteArray = baos.toByteArray()
+                val output = Base64.encodeToString(b, Base64.NO_WRAP)
+
+                //====================その他データの保存=========================
+                new?.icon = output
+                new?.mainText = mainEdit?.text.toString()
+                new?.memoText = memoEdit?.text.toString()
+                new?.archive = archive
+
+                //=====================日付==========================
+                val date = Date(System.currentTimeMillis())
+                val df = SimpleDateFormat("yyyy年 MM月 dd日", Locale.JAPANESE)
+                val formatted = df.format(date)
+                new?.dayText = formatted
+
+                //＝＝＝＝＝＝＝＝＝＝＝＝タグの保存===================
+                new?.tagList?.clear()
+                for( i in stateTagList!!){
+                    val tagObject = realm.createObject(TagDateClass::class.java ,UUID.randomUUID().toString()).apply {
+                        this.copyId = i
+                    }
+                    new?.tagList?.add(tagObject)
+                }
+
+                if(new?.stockDayList?.size == 0){
+                    val stock = StockDayDate(UUID.randomUUID().toString(),
+                        formatted,
+                        "最初",
+                        0)
+
+                    new.stockDayList?.plusAssign(stock)
+                }
             }
-
-            if(id == null){
-                val stock: StockDayDate = StockDayDate(UUID.randomUUID().toString(),
-                    formatted,
-                    "最初",
-                    0)
-
-                new?.stockDayList?.plusAssign(stock)
-            }
-
-            finish()
         }
     }
 
@@ -264,26 +234,16 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
-    //戻るボタンの処理
-    override fun onBackPressed() {
-        // 行いたい処理
-        AlertDialog.Builder(this) // FragmentではActivityを取得して生成
-            .setTitle("ホームへ戻る")
-            .setMessage("入力したデータを保存しないでホームに戻りますか？")
-            .setPositiveButton("OK") { _, _ ->
-                //Yesが押された時の挙動
-                finish()
-            }
-            .setNegativeButton("Cancel") { _, _ ->
-                // Noが押された時の挙動
-            }
-            .show()
+    override fun onDestroy() {
+        super.onDestroy()
+        realm.close()
+
     }
 
-    override fun onDestroy() {
-        realm.close()
-        super.onDestroy()
+    override fun onPause(){
+        super.onPause()
 
+        save()
     }
 
     //    タグインテントにおける戻りデータの受け取り部分
