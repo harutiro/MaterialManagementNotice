@@ -162,7 +162,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
             realm.executeTransaction {
                 person?.deleteFromRealm()
             }
-            listener.onRemoveReView(item.id.toString())
+            listener.onRemoveReView()
 
         }
 
@@ -198,7 +198,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
     interface OnItemClickListner{
         fun onItemClick(item: MainDate)
         fun onArchiveReView(id:String,moji:String)
-        fun onRemoveReView(id:String)
+        fun onRemoveReView()
         fun onStockReView(moji:String)
     }
 
