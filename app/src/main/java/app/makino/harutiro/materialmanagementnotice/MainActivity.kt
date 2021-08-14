@@ -2,7 +2,6 @@ package app.makino.harutiro.materialmanagementnotice
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
@@ -108,7 +107,11 @@ class MainActivity : AppCompatActivity() {
             override fun onArchiveReView(id:String,moji:String) {
                 Snackbar.make(findViewById(android.R.id.content),moji, Snackbar.LENGTH_SHORT)
                     .setAction("元に戻す"){
-                        Log.d("debug","入荷したお")
+                        val person = realm.where(MainDate::class.java).equalTo("id",id).findFirst()
+                        realm.executeTransaction {
+                            person?.archive = !person?.archive!!
+                        }
+                        recyclerViewGo()
                     }
                     .setActionTextColor(ContextCompat.getColor(this@MainActivity,R.color.themeColor))
                     .show()
@@ -116,13 +119,8 @@ class MainActivity : AppCompatActivity() {
                 recyclerViewGo()
             }
 
-            override fun onRemoveReView(id:String) {
-                Snackbar.make(findViewById(android.R.id.content),"消去しました", Snackbar.LENGTH_SHORT)
-                    .setAction("元に戻す"){
-                        Log.d("debug","入荷したお")
-                    }
-                    .setActionTextColor(ContextCompat.getColor(this@MainActivity,R.color.themeColor))
-                    .show()
+            override fun onRemoveReView() {
+                Snackbar.make(findViewById(android.R.id.content),"消去しました", Snackbar.LENGTH_SHORT).show()
 
                 recyclerViewGo()
             }
