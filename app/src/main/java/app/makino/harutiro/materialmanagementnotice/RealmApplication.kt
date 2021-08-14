@@ -11,11 +11,12 @@ class RealmApplication: Application() {
 
         //Realm初期化処理
         Realm.init(this)
-
+        
         //開発を効率化するための設定
         //データベースに保存するモデルに変更を加えた時アプリを消去して再インストールする手間を省くことができる
         val realmConfig = RealmConfiguration.Builder()
-            .deleteRealmIfMigrationNeeded()
+//                レルムの初期データの実装
+            .assetFile("inital_default.realm")
             .build()
         Realm.setDefaultConfiguration(realmConfig)
 
