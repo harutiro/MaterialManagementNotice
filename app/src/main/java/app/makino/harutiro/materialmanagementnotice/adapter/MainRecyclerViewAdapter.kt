@@ -70,39 +70,63 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         // MainActivity側でタップしたときの動作を記述するため，n番目の要素を渡す
         holder.container.setOnClickListener { listener.onItemClick(item) }
 
-        if(item.alertDay.isNotEmpty() && LocalDate.now().isEqual(LocalDate.parse(item.stockDayList!![item.stockDayList!!.size - 1]?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+        if(item.alertDay.isNotEmpty() && item.stockDayList?.size!! > 1 && LocalDate.now().isEqual(LocalDate.parse(item.stockDayList!![item.stockDayList!!.size - 1]?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
             holder.stockButton.setBackgroundColor(ContextCompat.getColor(context, R.color.textGray))
-        }else{
+            holder.stockButton.text = "取り消し"
+
+            holder.stockButton.setOnClickListener {
+                val today = LocalDate.now()
+
+                var leadTime = 0.0
+                for (i in person?.stockDayList!!){
+                    leadTime += i.interval
+                }
+                leadTime /= (person.stockDayList!!.size)
+
+                realm.executeTransaction(){
+                    person.stockDayList?.minusAssign(person.stockDayList?.get(person.stockDayList!!.size - 1))
+                    person.leadTime = leadTime
+                    person.alertDay = today.plusDays(leadTime.roundToLong()).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
+
+                }
+                listener.onStockReView("取り消しました")
+
+            }
+        }else {
             holder.stockButton.setBackgroundColor(ContextCompat.getColor(context, R.color.themeColor_Light))
+            holder.stockButton.text = "入荷"
+
+
+            holder.stockButton.setOnClickListener {
+
+                AndroidThreeTen.init(context)
+                val stockPerson = person?.stockDayList?.get(person.stockDayList!!.size - 1)
+                val lastLocalDate = LocalDate.parse(stockPerson?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
+                val today = LocalDate.now()
+
+                val stock = StockDayDate(UUID.randomUUID().toString(),
+                    today.format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")),
+                    "入荷",
+                    ChronoUnit.DAYS.between(lastLocalDate,today))
+
+                var leadTime:Double = ChronoUnit.DAYS.between(lastLocalDate,today).toDouble()
+                for (i in person?.stockDayList!!){
+                    leadTime += i.interval
+                }
+                leadTime /= (person.stockDayList!!.size)
+
+                realm.executeTransaction {
+                    person.stockDayList?.plusAssign(stock)
+                    person.leadTime = leadTime
+                    person.alertDay = today.plusDays(leadTime.roundToLong()).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
+                }
+
+                listener.onStockReView("入荷しました")
+            }
         }
 
 //        入荷ボタンの動作
-        holder.stockButton.setOnClickListener {
 
-            AndroidThreeTen.init(context)
-            val stockPerson = person?.stockDayList?.get(person.stockDayList!!.size - 1)
-            val lastLocalDate = LocalDate.parse(stockPerson?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
-            val today = LocalDate.now()
-
-            val stock = StockDayDate(UUID.randomUUID().toString(),
-                                                  today.format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")),
-                                                  "入荷",
-                                                  ChronoUnit.DAYS.between(lastLocalDate,today))
-
-            var leadTime:Double = ChronoUnit.DAYS.between(lastLocalDate,today).toDouble()
-            for (i in person?.stockDayList!!){
-                leadTime += i.interval
-            }
-            leadTime /= (person.stockDayList!!.size)
-
-            realm.executeTransaction {
-                person.stockDayList?.plusAssign(stock)
-                person.leadTime = leadTime
-                person.alertDay = today.plusDays(leadTime.roundToLong()).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
-            }
-
-            listener.onStockReView(item.id.toString())
-        }
 
 
 
@@ -179,7 +203,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         fun onItemClick(item: MainDate)
         fun onArchiveReView(id:String,moji:String)
         fun onRemoveReView(id:String)
-        fun onStockReView(id:String)
+        fun onStockReView(moji:String)
     }
 
     fun reView(){

@@ -34,7 +34,6 @@ import io.realm.Realm
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.roundToLong
 
 
 class MainActivity : AppCompatActivity() {
@@ -128,29 +127,8 @@ class MainActivity : AppCompatActivity() {
                 recyclerViewGo()
             }
 
-            override fun onStockReView(id:String) {
-                Snackbar.make(findViewById(android.R.id.content),"入荷しました", Snackbar.LENGTH_SHORT)
-                    .setAction("元に戻す"){
-                        val person = realm.where(MainDate::class.java).equalTo("id",id).findFirst()
-
-                        val today = LocalDate.now()
-
-                        var leadTime = 0.0
-                        for (i in person?.stockDayList!!){
-                            leadTime += i.interval
-                        }
-                        leadTime /= (person.stockDayList!!.size)
-
-                        realm.executeTransaction(){
-                            person?.stockDayList?.minusAssign(person.stockDayList?.get(person.stockDayList!!.size - 1))
-                            person.leadTime = leadTime
-                            person.alertDay = today.plusDays(leadTime.roundToLong()).format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
-
-                        }
-                        recyclerViewGo()
-//                        TODO: リードタイムの更新
-                    }
-                    .setActionTextColor(ContextCompat.getColor(this@MainActivity,R.color.themeColor))
+            override fun onStockReView(moji:String) {
+                Snackbar.make(findViewById(android.R.id.content),moji, Snackbar.LENGTH_SHORT)
                     .show()
 
                 recyclerViewGo()
