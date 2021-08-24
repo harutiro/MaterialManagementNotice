@@ -2,6 +2,7 @@ package app.makino.harutiro.materialmanagementnotice
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
@@ -12,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,6 +49,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Log.d("debag",getLongVersionCode(this.packageManager.getPackageInfo(this.packageName, 0)).toString())
 
 //        AdMob部分
         MobileAds.initialize(this)
