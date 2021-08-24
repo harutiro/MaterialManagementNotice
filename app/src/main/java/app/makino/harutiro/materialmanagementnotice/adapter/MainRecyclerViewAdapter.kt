@@ -78,10 +78,10 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                 val today = LocalDate.now()
 
                 var leadTime = 0.0
-                for (i in person?.stockDayList!!){
+                for (i in person?.stockDayList!!.dropLast(1)){
                     leadTime += i.interval
                 }
-                leadTime /= (person.stockDayList!!.size)
+                leadTime /= (person.stockDayList!!.size - 1)
 
                 realm.executeTransaction(){
                     person.stockDayList?.minusAssign(person.stockDayList?.get(person.stockDayList!!.size - 1))
@@ -104,16 +104,32 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                 val lastLocalDate = LocalDate.parse(stockPerson?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
                 val today = LocalDate.now()
 
+                val leadtime = if(person?.stockDayList?.get(person.stockDayList!!.size - 1)!!.state == "最初"){
+                    0
+                }else{
+                    ChronoUnit.DAYS.between(lastLocalDate,today)
+
+                }
+
                 val stock = StockDayDate(UUID.randomUUID().toString(),
                     today.format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")),
                     "入荷",
-                    ChronoUnit.DAYS.between(lastLocalDate,today))
+                    leadtime
+                    )
 
-                var leadTime:Double = ChronoUnit.DAYS.between(lastLocalDate,today).toDouble()
-                for (i in person?.stockDayList!!){
+                var leadTime:Double = leadtime.toDouble()
+                for (i in person.stockDayList!!){
                     leadTime += i.interval
                 }
-                leadTime /= (person.stockDayList!!.size)
+
+                val parameter = if(person.stockDayList!!.size - 2 > 0){
+                    person.stockDayList!!.size - 2
+                }else{
+                    1
+                }
+
+
+                leadTime /= (parameter)
 
                 realm.executeTransaction {
                     person.stockDayList?.plusAssign(stock)
