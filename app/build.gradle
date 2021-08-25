@@ -13,8 +13,8 @@ android {
         applicationId "app.makino.harutiro.materialmanagementnotice"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1-amethyst"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

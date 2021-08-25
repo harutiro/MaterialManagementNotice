@@ -29,7 +29,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
@@ -63,10 +62,6 @@ class MainActivity : AppCompatActivity() {
             editor.apply()
 
             updateWebView()
-
-        }
-
-        findViewById<Button>(R.id.testButton).setOnClickListener {
 
         }
 
