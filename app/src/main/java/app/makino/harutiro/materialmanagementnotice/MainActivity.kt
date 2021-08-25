@@ -1,6 +1,8 @@
 package app.makino.harutiro.materialmanagementnotice
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,6 +50,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        バージョンアップしたかどうか判断する部分
+        val versionNow = PackageInfoCompat.getLongVersionCode(this.packageManager.getPackageInfo(this.packageName, 0))
+
+        val sp: SharedPreferences = getSharedPreferences("DateStore", Context.MODE_PRIVATE)
+        val vCode: Int = sp.getInt("VersionCode", 1)
+
+        if(versionNow > vCode){
+            val editor = sp.edit()
+            editor.putInt("VersionCode", versionNow.toInt())
+            editor.apply()
+
+            Snackbar.make(findViewById(android.R.id.content),"バージョン上がったよ", Snackbar.LENGTH_SHORT).show()
+
+        }
+
+
 
 //        AdMob部分
         MobileAds.initialize(this)
