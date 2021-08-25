@@ -62,15 +62,7 @@ class MainActivity : AppCompatActivity() {
             editor.putInt("VersionCode", versionNow.toInt())
             editor.apply()
 
-            val tabsIntent = CustomTabsIntent.Builder()
-                .setShowTitle(true)
-                .setToolbarColor(ContextCompat.getColor(this, R.color.themeColor_Light))
-                .setStartAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .build()
-
-            // Chromeの起動
-            tabsIntent.launchUrl(this, Uri.parse("https://qiita.com/droibit/items/66704f96a602adec5a35"));
+            updateWebView()
 
         }
 
@@ -185,6 +177,18 @@ class MainActivity : AppCompatActivity() {
         realm.close()
         super.onDestroy()
 
+    }
+
+    fun updateWebView(){
+        val tabsIntent = CustomTabsIntent.Builder()
+            .setShowTitle(true)
+            .setToolbarColor(ContextCompat.getColor(this, R.color.themeColor_Light))
+            .setStartAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            .setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            .build()
+
+        // Chromeの起動
+        tabsIntent.launchUrl(this, Uri.parse("https://sites.google.com/view/pochimane/%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4"))
     }
 
     fun setChip(){
@@ -331,7 +335,7 @@ class MainActivity : AppCompatActivity() {
     //　アプリバーの部分
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            Snackbar.make(findViewById(android.R.id.content),"現在設定できるものはありません", Snackbar.LENGTH_SHORT).show()
+            updateWebView()
 
             true
         }
