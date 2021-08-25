@@ -1,19 +1,19 @@
 package app.makino.harutiro.materialmanagementnotice
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.realm.Realm
@@ -50,7 +51,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d("debag",getLongVersionCode(this.packageManager.getPackageInfo(this.packageName, 0)).toString())
+//        バージョンアップしたかどうか判断する部分
+        val versionNow = PackageInfoCompat.getLongVersionCode(this.packageManager.getPackageInfo(this.packageName, 0))
+
+        val sp: SharedPreferences = getSharedPreferences("DateStore", Context.MODE_PRIVATE)
+        val vCode: Int = sp.getInt("VersionCode", 1)
+
+        if(versionNow > vCode){
+            val editor = sp.edit()
+            editor.putInt("VersionCode", versionNow.toInt())
+            editor.apply()
+
+            updateWebView()
+
+        }
+
+        findViewById<Button>(R.id.testButton).setOnClickListener {
+
+        }
+
+
 
 //        AdMob部分
         MobileAds.initialize(this)
@@ -157,6 +177,18 @@ class MainActivity : AppCompatActivity() {
         realm.close()
         super.onDestroy()
 
+    }
+
+    fun updateWebView(){
+        val tabsIntent = CustomTabsIntent.Builder()
+            .setShowTitle(true)
+            .setToolbarColor(ContextCompat.getColor(this, R.color.themeColor_Light))
+            .setStartAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            .setExitAnimations(this, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            .build()
+
+        // Chromeの起動
+        tabsIntent.launchUrl(this, Uri.parse("https://sites.google.com/view/pochimane/%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4"))
     }
 
     fun setChip(){
@@ -303,7 +335,7 @@ class MainActivity : AppCompatActivity() {
     //　アプリバーの部分
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            Snackbar.make(findViewById(android.R.id.content),"現在設定できるものはありません", Snackbar.LENGTH_SHORT).show()
+            updateWebView()
 
             true
         }
