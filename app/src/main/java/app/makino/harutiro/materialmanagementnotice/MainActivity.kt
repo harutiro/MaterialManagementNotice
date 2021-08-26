@@ -68,12 +68,25 @@ class MainActivity : AppCompatActivity() {
             val mainDate = realm.where(MainDate::class.java).findAll()
 
             realm.executeTransaction {
-                for (parson in mainDate){
-                    for ((i,value) in parson.stockDayList!!.withIndex()){
+                for (person in mainDate){
+                    for ((i,value) in person.stockDayList!!.withIndex()){
                         if (i == 0){ value.state = "記入"}
                         if (i == 1){ value.state = "最初"
                                      value.interval = 0}
                     }
+
+                    var leadTime = 0.0
+                    for (i in person?.stockDayList!!.dropLast(1)){
+                        leadTime += i.interval
+                    }
+
+                    val parameter = if((person.stockDayList!!.size - 2) > 0){
+                        person.stockDayList!!.size - 2
+                    }else{
+                        1
+                    }
+
+                    leadTime /= (parameter)
                 }
             }
 
