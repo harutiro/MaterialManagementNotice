@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
@@ -76,7 +77,8 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     var leadTime = 0.0
-                    for (i in person?.stockDayList!!.dropLast(1)){
+                    for (i in person?.stockDayList!!.drop(2)){
+                        Log.d("debug",i.interval.toString())
                         leadTime += i.interval
                     }
 
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                         1
                     }
 
-                    leadTime /= (parameter)
+                    person.leadTime = leadTime / (parameter)
                 }
             }
 
