@@ -81,7 +81,14 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                 for (i in person?.stockDayList!!.dropLast(1)){
                     leadTime += i.interval
                 }
-                leadTime /= (person.stockDayList!!.size - 1)
+
+                val parameter = if((person.stockDayList!!.size - 3) > 0){
+                    person.stockDayList!!.size - 3
+                }else{
+                    1
+                }
+
+                leadTime /= (parameter)
 
                 realm.executeTransaction(){
                     person.stockDayList?.minusAssign(person.stockDayList?.get(person.stockDayList!!.size - 1))
@@ -122,7 +129,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                     leadTime += i.interval
                 }
 
-                val parameter = if(person.stockDayList!!.size - 2 > 0){
+                val parameter = if((person.stockDayList!!.size - 2) > 0){
                     person.stockDayList!!.size - 2
                 }else{
                     1
@@ -147,7 +154,15 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
         holder.iconImageView.setImageBitmap(BitmapFactory.decodeByteArray(decodedByte,0,decodedByte.size))
         holder.mainTextView.text = item.mainText
         holder.lastStackDayText.text = item.stockDayList?.get(person?.stockDayList!!.size - 1)?.day
-        holder.leadDayTimeText.text = String.format("%.1f",item.leadTime)
+
+        holder.leadDayTimeText.text = if(item.stockDayList!!.size >= 3){
+             String.format("%.1f",item.leadTime)
+
+        }else if(item.stockDayList!!.size >= 2){
+            "最初"
+        }else{
+            "記入"
+        }
 
 //        アーカイブの見た目の判断
         if(!item.archive){
