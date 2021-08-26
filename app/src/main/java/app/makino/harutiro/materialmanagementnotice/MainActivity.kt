@@ -71,7 +71,8 @@ class MainActivity : AppCompatActivity() {
                 for (parson in mainDate){
                     for ((i,value) in parson.stockDayList!!.withIndex()){
                         if (i == 0){ value.state = "記入"}
-                        if (i == 1){ value.state = "最初"}
+                        if (i == 1){ value.state = "最初"
+                                     value.interval = 0}
                     }
                 }
             }
