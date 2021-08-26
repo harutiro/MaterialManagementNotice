@@ -3,6 +3,7 @@ package app.makino.harutiro.materialmanagementnotice.adapter
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -129,13 +130,15 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                     leadTime += i.interval
                 }
 
-                val parameter = if((person.stockDayList!!.size - 2) > 0){
-                    person.stockDayList!!.size - 2
+                val parameter = if((person.stockDayList!!.size - 1) > 0){
+                    person.stockDayList!!.size - 1
                 }else{
                     1
                 }
 
 
+                Log.d("debug",leadTime.toString())
+                Log.d("debug",parameter.toString())
                 leadTime /= (parameter)
 
                 realm.executeTransaction {
