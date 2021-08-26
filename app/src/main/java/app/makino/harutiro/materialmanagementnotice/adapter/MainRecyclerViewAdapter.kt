@@ -112,7 +112,7 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
                 val lastLocalDate = LocalDate.parse(stockPerson?.day, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日"))
                 val today = LocalDate.now()
 
-                val leadtime = if(person?.stockDayList?.get(person.stockDayList!!.size - 1)!!.state == "最初"){
+                val leadtime = if(person?.stockDayList!!.size == 1){
                     0
                 }else{
                     ChronoUnit.DAYS.between(lastLocalDate,today)
