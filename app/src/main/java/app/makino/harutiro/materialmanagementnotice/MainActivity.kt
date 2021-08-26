@@ -63,6 +63,19 @@ class MainActivity : AppCompatActivity() {
 
             updateWebView()
 
+
+//            バージョンアップによるデータベースの変更の修正部分
+            val mainDate = realm.where(MainDate::class.java).findAll()
+
+            realm.executeTransaction {
+                for (parson in mainDate){
+                    for ((i,value) in parson.stockDayList!!.withIndex()){
+                        if (i == 0){ value.state = "記入"}
+                        if (i == 1){ value.state = "最初"}
+                    }
+                }
+            }
+
         }
 
 
