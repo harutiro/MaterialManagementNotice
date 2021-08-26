@@ -119,9 +119,15 @@ class MainRecyclerViewAdapter(private val context: Context,private val listener:
 
                 }
 
+                val state = if(person?.stockDayList!!.size == 1){
+                    "最初"
+                }else{
+                    "入荷"
+                }
+
                 val stock = StockDayDate(UUID.randomUUID().toString(),
                     today.format(DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")),
-                    "入荷",
+                    state,
                     leadtime
                     )
 

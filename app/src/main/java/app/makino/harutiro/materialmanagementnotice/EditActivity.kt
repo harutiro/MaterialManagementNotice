@@ -208,7 +208,7 @@ class EditActivity : AppCompatActivity() {
                 if(new?.stockDayList?.size == 0){
                     val stock = StockDayDate(UUID.randomUUID().toString(),
                         formatted,
-                        "最初",
+                        "記入",
                         0)
 
                     new.stockDayList?.plusAssign(stock)
