@@ -63,6 +63,9 @@ dependencies {
 //    カレンダー
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 
+//    yahooAPI json
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:28.3.1')

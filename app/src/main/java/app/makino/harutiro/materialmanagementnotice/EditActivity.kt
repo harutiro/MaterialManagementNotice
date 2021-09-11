@@ -261,7 +261,7 @@ class EditActivity : AppCompatActivity() {
 
     //　アプリバーの部分
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_settings -> {
+        R.id.action_code -> {
             //ボトムシートを上に浮き上がらせる
 //            val view = findViewById<ConstraintLayout>(R.id.edit_bottom_sheet)
 //            val mBottomSheetBehavior = BottomSheetBehavior.from(view)

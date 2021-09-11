@@ -16,10 +16,10 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         app:showAsAction="ifRoom"/>
 
-<!--    <item android:id="@+id/action_settings"-->
-<!--        android:title="action_settings"-->
-<!--        android:icon="@drawable/ic_baseline_more_vert_24"-->
-<!--        android:background="?android:attr/selectableItemBackgroundBorderless"-->
-<!--        app:showAsAction="ifRoom"/>-->
+    <item android:id="@+id/action_code"
+        android:title="QRコード取得"
+        android:icon="@drawable/qr_code_scanner_black_24dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:showAsAction="ifRoom"/>
 
 </menu>
