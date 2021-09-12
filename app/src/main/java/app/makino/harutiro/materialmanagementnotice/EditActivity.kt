@@ -25,17 +25,22 @@ import app.makino.harutiro.materialmanagementnotice.date.MainDate
 import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
 import app.makino.harutiro.materialmanagementnotice.date.StockDayDate
 import app.makino.harutiro.materialmanagementnotice.date.TagDateClass
+import app.makino.harutiro.materialmanagementnotice.dousa.UserService
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.realm.Realm
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.String as String1
-
-
-
 
 
 class EditActivity : AppCompatActivity() {
@@ -262,10 +267,35 @@ class EditActivity : AppCompatActivity() {
     //　アプリバーの部分
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_code -> {
-            //ボトムシートを上に浮き上がらせる
-//            val view = findViewById<ConstraintLayout>(R.id.edit_bottom_sheet)
-//            val mBottomSheetBehavior = BottomSheetBehavior.from(view)
-//            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//            JanCode　ー＞　商品名
+            val gson: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+
+            val retrofit: Retrofit =  Retrofit.Builder()
+                .baseUrl("https://shopping.yahooapis.jp/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+
+            val userService: UserService = retrofit.create(UserService::class.java)
+
+            //情報取得を別のスレッドでおこなうようにする
+            runBlocking(Dispatchers.IO){
+                runCatching {
+                    //userServiseで定義したメソッドを使ってユーザー情報を取得する
+                    userService.getUser("4582409185602")
+                }
+            }.onSuccess{
+                //読み込んだデータをはめ込む
+                mainEdit?.setText(it.hits[0].name)
+
+
+            }.onFailure {
+                //失敗した時のところ。
+                val snackbar = Snackbar.make(findViewById(android.R.id.content),"商品名の取得に失敗しました。", Snackbar.LENGTH_SHORT)
+                snackbar.view.setBackgroundResource(R.color.error)
+                snackbar.show()
+            }
+
+
 
             true
         }

@@ -1,7 +1,10 @@
 package app.makino.harutiro.materialmanagementnotice.date
 
-import com.google.gson.annotations.SerializedName
-
 data class YahooApiJsonTable (
-    @SerializedName("name") val goodsName:String
+    val hits: List<Hits>,
+//    val forecasts:List<Forecasts>
         )
+
+data class Hits(
+    val name:String
+)
