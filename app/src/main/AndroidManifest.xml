@@ -7,28 +7,32 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:hardwareAccelerated="true"
-        android:name="app.makino.harutiro.materialmanagementnotice.RealmApplication"
+        android:name=".RealmApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/new_ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/new_ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShareTN"
         tools:ignore="HardcodedDebugMode">
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_settings" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5364758522568684~1748922401"/>
+            android:value="ca-app-pub-5364758522568684~1748922401" />
 
-        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-
-        <activity android:name="app.makino.harutiro.materialmanagementnotice.SelectTagActivity" />
-        <activity android:name="app.makino.harutiro.materialmanagementnotice.EditTagActivity" />
-        <activity android:name="app.makino.harutiro.materialmanagementnotice.EditActivity"/>
-        <activity android:name="app.makino.harutiro.materialmanagementnotice.MainActivity">
+        <activity android:name=".SelectTagActivity" />
+        <activity android:name=".EditTagActivity" />
+        <activity android:name=".EditActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

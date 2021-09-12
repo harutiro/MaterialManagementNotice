@@ -359,7 +359,9 @@ class MainActivity : AppCompatActivity() {
     //　アプリバーの部分
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
-            updateWebView()
+//            updateWebView()
+            val intent = Intent(this,SettingsActivity::class.java)
+            startActivity(intent)
 
             true
         }
