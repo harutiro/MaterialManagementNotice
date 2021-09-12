@@ -6,6 +6,6 @@ import retrofit2.http.Path
 
 interface UserService {
 
-    @GET("user/{janCode}")
-    suspend fun getUser(@Path("janCode")userId: String):YahooApiJsonTable
+    @GET("users/{userId}")
+    suspend fun getUser(@Path("userId") userId: String): YahooApiJsonTable
 }
