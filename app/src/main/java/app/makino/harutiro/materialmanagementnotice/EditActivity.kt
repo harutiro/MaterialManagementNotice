@@ -271,7 +271,7 @@ class EditActivity : AppCompatActivity() {
             val gson: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
 
             val retrofit: Retrofit =  Retrofit.Builder()
-                .baseUrl("https://weather.tsukumijima.net/")
+                .baseUrl("https://shopping.yahooapis.jp/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
@@ -281,11 +281,11 @@ class EditActivity : AppCompatActivity() {
             runBlocking(Dispatchers.IO){
                 runCatching {
                     //userServiseで定義したメソッドを使ってユーザー情報を取得する
-                    userService.getUser("230020")
+                    userService.getUser("4582409185602")
                 }
             }.onSuccess{
                 //読み込んだデータをはめ込む
-                mainEdit?.setText(it.forecasts[0].telop)
+                mainEdit?.setText(it.hits[0].name)
 
 
             }.onFailure {

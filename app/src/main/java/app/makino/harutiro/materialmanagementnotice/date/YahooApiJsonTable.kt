@@ -1,10 +1,10 @@
 package app.makino.harutiro.materialmanagementnotice.date
 
 data class YahooApiJsonTable (
-    val title: String,
-    val forecasts:List<Forecasts>
+    val hits: List<Hits>,
+//    val forecasts:List<Forecasts>
         )
 
-data class Forecasts(
-    val telop:String
+data class Hits(
+    val name:String
 )
