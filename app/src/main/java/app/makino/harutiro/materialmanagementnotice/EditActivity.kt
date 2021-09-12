@@ -244,35 +244,6 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
-    fun getGoodsName(){
-        val gson: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
-
-        val retrofit: Retrofit =  Retrofit.Builder()
-            .baseUrl("https://shopping.yahooapis.jp/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-
-        val userService: UserService = retrofit.create(UserService::class.java)
-
-        //情報取得を別のスレッドでおこなうようにする
-        runBlocking(Dispatchers.IO){
-            runCatching {
-                //userServiseで定義したメソッドを使ってユーザー情報を取得する
-                userService.getUser(janCode)
-            }
-        }.onSuccess{
-            //読み込んだデータをはめ込む
-            mainEdit?.setText(it.hits[0].name)
-
-
-        }.onFailure {
-            //失敗した時のところ。
-            val snackbar = Snackbar.make(findViewById(android.R.id.content),"商品名の取得に失敗しました。", Snackbar.LENGTH_SHORT)
-            snackbar.view.setBackgroundResource(R.color.error)
-            snackbar.show()
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         realm.close()
@@ -304,7 +275,38 @@ class EditActivity : AppCompatActivity() {
             Toast.makeText(this, result.contents, Toast.LENGTH_LONG).show()
             janCode = result.contents
 
-            getGoodsName()
+            val gson: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+
+            val retrofit: Retrofit =  Retrofit.Builder()
+                .baseUrl("https://shopping.yahooapis.jp/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+
+            val userService: UserService = retrofit.create(UserService::class.java)
+
+            //情報取得を別のスレッドでおこなうようにする
+            runBlocking(Dispatchers.IO){
+                runCatching {
+                    //userServiseで定義したメソッドを使ってユーザー情報を取得する
+                    userService.getUser(janCode)
+                }
+            }.onSuccess{
+                //読み込んだデータをはめ込む
+                if(it.hits.isNotEmpty()){
+                    mainEdit?.setText(it.hits[0].name)
+                }else{
+                    val snackbar = Snackbar.make(findViewById(android.R.id.content),"この商品は対応していません。", Snackbar.LENGTH_SHORT)
+                    snackbar.view.setBackgroundResource(R.color.error)
+                    snackbar.show()
+                }
+
+
+            }.onFailure {
+                //失敗した時のところ。
+                val snackbar = Snackbar.make(findViewById(android.R.id.content),"商品名の取得に失敗しました。", Snackbar.LENGTH_SHORT)
+                snackbar.view.setBackgroundResource(R.color.error)
+                snackbar.show()
+            }
 
         } else {
             super.onActivityResult(requestCode, resultCode, data)
