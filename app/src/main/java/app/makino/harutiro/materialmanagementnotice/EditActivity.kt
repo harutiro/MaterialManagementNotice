@@ -11,10 +11,7 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.zxing.integration.android.IntentIntegrator
 import io.realm.Realm
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -69,6 +67,10 @@ class EditActivity : AppCompatActivity() {
     var stateEditMode: Boolean = false
 
     var archive :Boolean = false
+
+//    QRコード
+    private lateinit var qrScanIntegrator: IntentIntegrator
+    var janCode = ""
 
     @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     @Suppress("DEPRECATION")
@@ -242,6 +244,35 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
+    fun getGoodsName(){
+        val gson: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+
+        val retrofit: Retrofit =  Retrofit.Builder()
+            .baseUrl("https://shopping.yahooapis.jp/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        val userService: UserService = retrofit.create(UserService::class.java)
+
+        //情報取得を別のスレッドでおこなうようにする
+        runBlocking(Dispatchers.IO){
+            runCatching {
+                //userServiseで定義したメソッドを使ってユーザー情報を取得する
+                userService.getUser(janCode)
+            }
+        }.onSuccess{
+            //読み込んだデータをはめ込む
+            mainEdit?.setText(it.hits[0].name)
+
+
+        }.onFailure {
+            //失敗した時のところ。
+            val snackbar = Snackbar.make(findViewById(android.R.id.content),"商品名の取得に失敗しました。", Snackbar.LENGTH_SHORT)
+            snackbar.view.setBackgroundResource(R.color.error)
+            snackbar.show()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         realm.close()
@@ -264,36 +295,34 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
+    // 読取後に呼ばれる
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        if (result != null) {
+            // 読取結果はresult.contentsで参照できる
+            Toast.makeText(this, result.contents, Toast.LENGTH_LONG).show()
+            janCode = result.contents
+
+            getGoodsName()
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
     //　アプリバーの部分
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_code -> {
 //            JanCode　ー＞　商品名
-            val gson: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
 
-            val retrofit: Retrofit =  Retrofit.Builder()
-                .baseUrl("https://shopping.yahooapis.jp/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-
-            val userService: UserService = retrofit.create(UserService::class.java)
-
-            //情報取得を別のスレッドでおこなうようにする
-            runBlocking(Dispatchers.IO){
-                runCatching {
-                    //userServiseで定義したメソッドを使ってユーザー情報を取得する
-                    userService.getUser("4582409185602")
-                }
-            }.onSuccess{
-                //読み込んだデータをはめ込む
-                mainEdit?.setText(it.hits[0].name)
-
-
-            }.onFailure {
-                //失敗した時のところ。
-                val snackbar = Snackbar.make(findViewById(android.R.id.content),"商品名の取得に失敗しました。", Snackbar.LENGTH_SHORT)
-                snackbar.view.setBackgroundResource(R.color.error)
-                snackbar.show()
-            }
+            this.qrScanIntegrator = IntentIntegrator(this)
+            // 縦画面に固定
+            this.qrScanIntegrator.setOrientationLocked(false)
+            // QRコード読み取り後のビープ音を停止
+            this.qrScanIntegrator.setBeepEnabled(false)
+            // スキャン開始
+            this.qrScanIntegrator.initiateScan()
 
 
 
