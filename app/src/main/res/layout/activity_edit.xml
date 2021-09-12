@@ -40,8 +40,45 @@
                     android:scrollbars="vertical"
                     android:textColor="@color/textBlock"
                     app:layout_constraintEnd_toEndOf="@+id/mainEdit"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/mainEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/janCodeEdit2" />
+
+                <EditText
+                    android:id="@+id/janCodeEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/border"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="商品コード"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/textBlock"
+                    app:layout_constraintEnd_toEndOf="@+id/mainEdit"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/mainEdit"
                     app:layout_constraintTop_toBottomOf="@+id/mainEdit" />
+
+                <EditText
+                    android:id="@+id/janCodeEdit2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/border"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="在庫数"
+                    android:inputType="number"
+                    android:minHeight="48dp"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/textBlock"
+                    app:layout_constraintEnd_toEndOf="@+id/mainEdit"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/mainEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/janCodeEdit" />
 
                 <ImageView
                     android:id="@+id/mainIcon"
@@ -105,6 +142,28 @@
                     app:srcCompat="@drawable/description_black_24dp"
                     app:tint="@color/textBlock" />
 
+                <ImageView
+                    android:id="@+id/janCodeIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/mainIcon"
+                    app:layout_constraintStart_toStartOf="@+id/mainIcon"
+                    app:layout_constraintTop_toTopOf="@+id/janCodeEdit"
+                    app:srcCompat="@drawable/qr_code_2_black_24dp"
+                    app:tint="@color/textBlock" />
+
+                <ImageView
+                    android:id="@+id/janCodeIcon2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/mainIcon"
+                    app:layout_constraintStart_toStartOf="@+id/mainIcon"
+                    app:layout_constraintTop_toTopOf="@+id/janCodeEdit2"
+                    app:srcCompat="@drawable/_903089_cardboard_icon"
+                    app:tint="@color/textBlock" />
+
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/editTagChipGroup"
                     android:layout_width="0dp"
@@ -115,7 +174,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image">
+                    app:layout_constraintTop_toBottomOf="@+id/memoEdit">
 
                 </com.google.android.material.chip.ChipGroup>
 
