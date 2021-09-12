@@ -285,7 +285,7 @@ class EditActivity : AppCompatActivity() {
                 }
             }.onSuccess{
                 //読み込んだデータをはめ込む
-                mainEdit?.setText(it.title)
+                mainEdit?.setText(it.forecasts[0].telop)
 
 
             }.onFailure {
