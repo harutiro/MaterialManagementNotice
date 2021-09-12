@@ -328,6 +328,31 @@
             </PaintGroupHighlightMap>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/app/makino/harutiro/materialmanagementnotice/SettingsActivity.kt">
+          <value>
+            <PaintGroupHighlightMap>
+              <option name="paintGroups">
+                <map>
+                  <entry key="0">
+                    <value>
+                      <EditorHighlightsForPaintGroup />
+                    </value>
+                  </entry>
+                  <entry key="1">
+                    <value>
+                      <EditorHighlightsForPaintGroup />
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <EditorHighlightsForPaintGroup />
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PaintGroupHighlightMap>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/app/makino/harutiro/materialmanagementnotice/adapter/EditRecyclerViewAdapter.kt">
           <value>
             <PaintGroupHighlightMap>
@@ -503,7 +528,7 @@
             </PaintGroupHighlightMap>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/app/makino/harutiro/materialmanagementnotice/dousa/WebTask.kt">
+        <entry key="$PROJECT_DIR$/app/src/main/java/app/makino/harutiro/materialmanagementnotice/dousa/UserService.kt">
           <value>
             <PaintGroupHighlightMap>
               <option name="paintGroups">
@@ -528,7 +553,7 @@
             </PaintGroupHighlightMap>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/app/makino/harutiro/materialmanagementnotice/dousa/UserService.kt">
+        <entry key="$PROJECT_DIR$/app/src/main/java/app/makino/harutiro/materialmanagementnotice/dousa/WebTask.kt">
           <value>
             <PaintGroupHighlightMap>
               <option name="paintGroups">
@@ -804,6 +829,31 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/themes.xml">
+          <value>
+            <PaintGroupHighlightMap>
+              <option name="paintGroups">
+                <map>
+                  <entry key="0">
+                    <value>
+                      <EditorHighlightsForPaintGroup />
+                    </value>
+                  </entry>
+                  <entry key="1">
+                    <value>
+                      <EditorHighlightsForPaintGroup />
+                    </value>
+                  </entry>
+                  <entry key="2">
+                    <value>
+                      <EditorHighlightsForPaintGroup />
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PaintGroupHighlightMap>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/xml/root_preferences.xml">
           <value>
             <PaintGroupHighlightMap>
               <option name="paintGroups">

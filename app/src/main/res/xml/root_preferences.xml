@@ -17,18 +17,20 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="更新お知らせ">
 
         <SwitchPreferenceCompat
             app:key="sync"
             app:title="@string/sync_title" />
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+        <Preference
+            app:key="update"
+            app:summary="タップすると更新のお知らせがブラウザで開きます。"
+            app:title="更新のお知らせを開く">
+            <intent
+                app:action="android.intent.action.VIEW"
+                app:data="http://www.yahoo.co.jp" />
+        </Preference>
 
     </PreferenceCategory>
 

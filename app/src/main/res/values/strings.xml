@@ -9,6 +9,8 @@
         <item>入荷するまで表示しない</item>
     </string-array>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="NewURL">https://sites.google.com/view/pochimane/%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4</string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
