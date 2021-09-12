@@ -23,6 +23,7 @@ import app.makino.harutiro.materialmanagementnotice.date.OriginTagDateClass
 import app.makino.harutiro.materialmanagementnotice.date.StockDayDate
 import app.makino.harutiro.materialmanagementnotice.date.TagDateClass
 import app.makino.harutiro.materialmanagementnotice.dousa.UserService
+import coil.api.load
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.snackbar.Snackbar
@@ -294,6 +295,7 @@ class EditActivity : AppCompatActivity() {
                 //読み込んだデータをはめ込む
                 if(it.hits.isNotEmpty()){
                     mainEdit?.setText(it.hits[0].name)
+                    mainIcon?.load(it.hits[0].image.medium)
                 }else{
                     val snackbar = Snackbar.make(findViewById(android.R.id.content),"この商品は対応していません。", Snackbar.LENGTH_SHORT)
                     snackbar.view.setBackgroundResource(R.color.error)
@@ -320,7 +322,7 @@ class EditActivity : AppCompatActivity() {
 
             this.qrScanIntegrator = IntentIntegrator(this)
             // 縦画面に固定
-            this.qrScanIntegrator.setOrientationLocked(false)
+            this.qrScanIntegrator.setOrientationLocked(true)
             // QRコード読み取り後のビープ音を停止
             this.qrScanIntegrator.setBeepEnabled(false)
             // スキャン開始

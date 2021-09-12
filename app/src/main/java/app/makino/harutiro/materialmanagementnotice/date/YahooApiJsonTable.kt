@@ -6,5 +6,10 @@ data class YahooApiJsonTable (
         )
 
 data class Hits(
-    val name:String
+    val name:String,
+    val image:Image
+)
+
+data class Image(
+    val medium: String
 )
