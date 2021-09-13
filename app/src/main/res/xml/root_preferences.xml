@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory app:title="@string/messages_header">
 
@@ -28,8 +29,8 @@
             app:summary="タップすると更新のお知らせがブラウザで開きます。"
             app:title="更新のお知らせを開く">
             <intent
-                app:action="android.intent.action.VIEW"
-                app:data="http://www.yahoo.co.jp" />
+                android:action="android.intent.action.VIEW"
+                android:data="https://sites.google.com/view/pochimane/%E6%9B%B4%E6%96%B0%E5%B1%A5%E6%AD%B4" />
         </Preference>
 
     </PreferenceCategory>
