@@ -28,7 +28,7 @@
 
 
         <SwitchPreferenceCompat
-            app:key="Alarm"
+            app:key="alarm"
             app:title="通知機能の制限"
             app:summary="通知機能の制限を有効にすると通知がされなくなります"/>
 

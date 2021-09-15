@@ -16,6 +16,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.makino.harutiro.materialmanagementnotice.adapter.MainRecyclerViewAdapter
@@ -106,22 +107,27 @@ class MainActivity : AppCompatActivity() {
         serchTagChipGroup = findViewById(R.id.serchTagChipGroup)
 
 //        アラート表示部分、フラグメント
-        AndroidThreeTen.init(this)
-        val new = realm.where(MainDate::class.java).findAll()
-        var number = 0
+        val settingSp = PreferenceManager.getDefaultSharedPreferences(this)
+        val settingState = settingSp.getBoolean("alarm",false)
 
-        for(i in new){
-            if(i.alertDay.isNotEmpty() && i.leadTime >= 1.0 && LocalDate.now().plusDays(1).isAfter(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
-                number++
+        if(!settingState){
+            AndroidThreeTen.init(this)
+            val new = realm.where(MainDate::class.java).findAll()
+            var number = 0
 
-                val dialog = CustomDialogFlagment()
-                val args = Bundle()
+            for(i in new){
+                if(i.alertDay.isNotEmpty() && i.leadTime >= 1.0 && LocalDate.now().plusDays(1).isAfter(LocalDate.parse(i?.alertDay, DateTimeFormatter.ofPattern("yyyy年 MM月 dd日")))){
+                    number++
 
-                args.putInt("remaining",number)
-                args.putString("id",i.id)
-                dialog.arguments = args
+                    val dialog = CustomDialogFlagment()
+                    val args = Bundle()
 
-                dialog.show(supportFragmentManager,"customDialog")
+                    args.putInt("remaining",number)
+                    args.putString("id",i.id)
+                    dialog.arguments = args
+
+                    dialog.show(supportFragmentManager,"customDialog")
+                }
             }
         }
 
