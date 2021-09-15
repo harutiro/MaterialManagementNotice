@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="モード変更">
+    <PreferenceCategory app:title="その他">
 
 <!--        <EditTextPreference-->
 <!--            app:key="signature"-->
@@ -9,13 +9,14 @@
 <!--            app:useSimpleSummaryProvider="true" />-->
 
 
-<!--        <ListPreference-->
-<!--            app:defaultValue="reply"-->
-<!--            app:entries="@array/reply_entries"-->
-<!--            app:entryValues="@array/reply_values"-->
-<!--            app:key="reply"-->
-<!--            app:title="@string/reply_title"-->
-<!--            app:useSimpleSummaryProvider="true" />-->
+        <ListPreference
+            app:defaultValue="reply"
+            app:entries="@array/editState_entries"
+            app:entryValues="@array/editState_values"
+            app:key="editState"
+            app:summary="履歴の入荷の部分を発注に変更することができます。"
+            app:title="@string/reply_title"
+            app:useSimpleSummaryProvider="true" />
 
         <!--        <SwitchPreferenceCompat-->
         <!--            app:dependency="sync"-->
