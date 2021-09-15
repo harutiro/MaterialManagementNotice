@@ -10,12 +10,12 @@
 
 
         <ListPreference
-            app:defaultValue="reply"
+            app:defaultValue="in_stock"
             app:entries="@array/editState_entries"
             app:entryValues="@array/editState_values"
             app:key="editState"
             app:summary="履歴の入荷の部分を発注に変更することができます。"
-            app:title="@string/reply_title"
+            app:title="入荷と発注の変更"
             app:useSimpleSummaryProvider="true" />
 
         <!--        <SwitchPreferenceCompat-->
