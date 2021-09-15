@@ -1,32 +1,64 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="モード変更">
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+<!--        <EditTextPreference-->
+<!--            app:key="signature"-->
+<!--            app:title="@string/signature_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+
+<!--        <ListPreference-->
+<!--            app:defaultValue="reply"-->
+<!--            app:entries="@array/reply_entries"-->
+<!--            app:entryValues="@array/reply_values"-->
+<!--            app:key="reply"-->
+<!--            app:title="@string/reply_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
+
+        <!--        <SwitchPreferenceCompat-->
+        <!--            app:dependency="sync"-->
+        <!--            app:key="attachment"-->
+        <!--            app:summaryOff="@string/attachment_summary_off"-->
+        <!--            app:summaryOn="@string/attachment_summary_on"-->
+        <!--            app:title="@string/attachment_title" />-->
+
+
+
+        <SwitchPreferenceCompat
+            app:key="Alarm"
+            app:title="通知機能の制限"
+            app:summary="通知機能の制限を有効にすると通知がされなくなります"/>
+
+
+
+
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="詳細モードの設定">
+
+        <SwitchPreferenceCompat
+            app:key="details"
+            app:title="詳細モード"
+            app:summary="詳細モードにすると、在庫数の管理ができるようになります。"/>
+
+        <SwitchPreferenceCompat
+            app:dependency="details"
+            app:key="memoMode"
+            app:title="メモモード"
+            app:summaryOff="詳細モードを有効にしないと変更できません。\n\nメモモードにすると全体の在庫数は計測しなくなり、全てを手入力で入力できるようになります。"
+            app:summary="メモモードにすると全体の在庫数は計測しなくなり、全てを手入力で入力できるようになります。"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory app:title="更新お知らせ">
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
         <Preference
             app:key="update"
-            app:summary="タップすると更新のお知らせがブラウザで開きます。"
+            app:summary="タップすると更新のお知らせをブラウザで開きます。"
             app:title="更新のお知らせを開く">
             <intent
                 android:action="android.intent.action.VIEW"
