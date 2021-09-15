@@ -273,8 +273,17 @@ class EditActivity : AppCompatActivity() {
 
         if (result != null) {
             // 読取結果はresult.contentsで参照できる
+            try {
+                janCode = result.contents
+            }catch(e: Exception){
+                val snackbar = Snackbar.make(findViewById(android.R.id.content),"QRコードリーダーにおいてエラーが発生しました", Snackbar.LENGTH_SHORT)
+                snackbar.view.setBackgroundResource(R.color.error)
+                snackbar.show()
+                return
+            }
+
             Toast.makeText(this, result.contents, Toast.LENGTH_LONG).show()
-            janCode = result.contents
+
 
             val gson: Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
 
@@ -297,9 +306,7 @@ class EditActivity : AppCompatActivity() {
                     mainEdit?.setText(it.hits[0].name)
                     mainIcon?.load(it.hits[0].image.medium)
                 }else{
-                    val snackbar = Snackbar.make(findViewById(android.R.id.content),"この商品は対応していません。", Snackbar.LENGTH_SHORT)
-                    snackbar.view.setBackgroundResource(R.color.error)
-                    snackbar.show()
+                    Snackbar.make(findViewById(android.R.id.content),"この商品は対応していません。", Snackbar.LENGTH_SHORT).show()
                 }
 
 
